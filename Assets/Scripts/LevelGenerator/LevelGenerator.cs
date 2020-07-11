@@ -40,6 +40,7 @@ public class LevelGenerator : MonoBehaviour
         GenerateBoosts();
         GenerateEnemys();
         GenerateCoins();
+        GenerateCharacter();
     }
 
     private void GeneratePlatforms()
@@ -233,5 +234,11 @@ public class LevelGenerator : MonoBehaviour
                 equalIntervals.RemoveAt(num);
             }
         }
+    }
+
+    private void GenerateCharacter()
+    {
+        GameObject character = _factory.GetCharacter();
+        character.transform.position = new Vector3(_lvlWidth / 2, 1.5f);
     }
 }     

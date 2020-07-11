@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 1011476567460358617}
   m_Layer: 0
   m_Name: Trampoline
-  m_TagString: Coin
+  m_TagString: Boost
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

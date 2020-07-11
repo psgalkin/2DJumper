@@ -63,6 +63,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Character\Character.cs" />
+    <Compile Include="Assets\Scripts\Character\MovingController.cs" />
     <Compile Include="Assets\Scripts\GameLogic\GameLogic.cs" />
     <Compile Include="Assets\Scripts\LevelGenerator\CoinBehaviour.cs" />
     <Compile Include="Assets\Scripts\LevelGenerator\LevelData.cs" />

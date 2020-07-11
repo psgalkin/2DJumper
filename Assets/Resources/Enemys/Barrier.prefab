@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 6980299299789823960}
   m_Layer: 0
   m_Name: Barrier
-  m_TagString: Coin
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

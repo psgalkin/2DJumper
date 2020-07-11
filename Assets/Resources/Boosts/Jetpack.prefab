@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 6505691639933837491}
   m_Layer: 0
   m_Name: Jetpack
-  m_TagString: Coin
+  m_TagString: Boost
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

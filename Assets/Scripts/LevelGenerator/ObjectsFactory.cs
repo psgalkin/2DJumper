@@ -19,6 +19,8 @@ class ObjectsFactory
     private GameObject _weaponBoost;
     private GameObject _armorBoost;
 
+    private GameObject _character;
+
     public GameObject GetPlatform(PlatformType type)
     {
         GameObject platform;
@@ -194,5 +196,15 @@ class ObjectsFactory
             _armorBoost = Resources.Load<GameObject>(AssetPath.Boosts[BoostType.Armor]);
         }
         return _armorBoost;
+    }
+
+    public GameObject GetCharacter()
+    {
+        if (!_character)
+        {
+            _character = Resources.Load<GameObject>(AssetPath.Character);
+        }
+
+        return UnityEngine.Object.Instantiate(_character);
     }
 }
