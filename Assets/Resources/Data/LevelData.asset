@@ -37,34 +37,7 @@ MonoBehaviour:
   - IntervalStart: 50
     IntervalEnd: 100
     Number: 15
-  EnemyIntervals:
-  - IntervalStart: 2
-    IntervalEnd: 15
-    TypesNumbersProbabilitys:
-    - EnemyType: 1
-      Number: 2
-      Probability: 100
-    - EnemyType: 2
-      Number: 2
-      Probability: 100
-  - IntervalStart: 25
-    IntervalEnd: 35
-    TypesNumbersProbabilitys:
-    - EnemyType: 1
-      Number: 1
-      Probability: 100
-  - IntervalStart: 50
-    IntervalEnd: 75
-    TypesNumbersProbabilitys:
-    - EnemyType: 1
-      Number: 3
-      Probability: 50
-    - EnemyType: 2
-      Number: 3
-      Probability: 50
-  - IntervalStart: 0
-    IntervalEnd: 0
-    TypesNumbersProbabilitys: []
+  EnemyIntervals: []
   BoostIntervals:
   - IntervalStart: 20
     IntervalEnd: 40

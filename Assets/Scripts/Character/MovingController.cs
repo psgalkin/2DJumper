@@ -7,8 +7,14 @@ class MovingController : MonoBehaviour
     [SerializeField] private MovingType _movingType;
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private float _jumpForce;
-
+    
     private Rigidbody2D _rigidBody;
+
+    private bool _isForceJump = false;
+    private bool _isRandomJump = false;
+    private bool _isFlying = false;
+
+    private float _forceCoef = 1.2f;
 
     private void Start()
     {
@@ -17,21 +23,63 @@ class MovingController : MonoBehaviour
 
     public bool CanJump()
     {
-        if (_rigidBody.velocity.y >= 0 && _rigidBody.velocity.y < 0.05)
-        //if (_groundDetector.InTrigger == true && _rigidBody.velocity.y < 0) 
+        if (_rigidBody.velocity.y >= 0.0f && _rigidBody.velocity.y < 0.01f)
         {
             return true;
-
         }
 
         return false;
+    }
+
+    public void SetForceCoef(float coef)
+    {
+        _forceCoef = coef;
+    }
+
+    public void StopJump()
+    {
+        _isForceJump = false;
+        _isRandomJump = false;
+    }
+
+    public void ForceJump()
+    {
+        _isForceJump = true;
+    }
+
+    public void RandomJump()
+    {
+        _isRandomJump = true;
+    }
+
+    public void StartFlying()
+    {
+        _isFlying = true;
+    }
+
+    public void StopFlying()
+    {
+        _isFlying = false;
     }
 
     public void Jump()
     {
         if (CanJump())
         {
-            _rigidBody.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Force);
+            if (_isForceJump)
+            {
+                _rigidBody.AddForce(new Vector2(0, _jumpForce * _forceCoef), ForceMode2D.Force);
+                _isForceJump = false;
+            }
+            else if (_isRandomJump)
+            {
+                _rigidBody.AddForce((new Vector2(Random.Range(-0.7f, 0.7f), 1.0f)).normalized * _jumpForce, ForceMode2D.Force);
+                _isRandomJump = false;
+            }
+            else
+            {
+                _rigidBody.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Force);
+            }
         }
     }
 
@@ -53,6 +101,5 @@ class MovingController : MonoBehaviour
     {
         Move();
         //Jump();
-
     }
 }

@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 1957298982553653185}
   - component: {fileID: 86453731695292272}
   - component: {fileID: 5710477636233484438}
+  - component: {fileID: -3796817264305443033}
   m_Layer: 0
   m_Name: Pusher
   m_TagString: Enemy
@@ -161,3 +162,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.0996094, y: 1.4580078}
   m_EdgeRadius: 0
+--- !u!114 &-3796817264305443033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8732887950903928414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67033d228aa9ee841a2e6bf94343c4e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

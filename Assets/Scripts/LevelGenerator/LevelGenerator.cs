@@ -36,11 +36,11 @@ public class LevelGenerator : MonoBehaviour
 
     private void Generate()
     {
+        GenerateCharacter();
         GeneratePlatforms();
         GenerateBoosts();
         GenerateEnemys();
         GenerateCoins();
-        GenerateCharacter();
     }
 
     private void GeneratePlatforms()
