@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Numerics;
+using UnityEngine;
+
+using Vector2 = UnityEngine.Vector2;
 
 class MovingController : MonoBehaviour
 {
@@ -14,7 +17,8 @@ class MovingController : MonoBehaviour
     private bool _isRandomJump = false;
     private bool _isFlying = false;
 
-    private float _forceCoef = 1.2f;
+    private float _forceCoef;
+    private float _flyingSpeed;
 
     private void Start()
     {
@@ -34,6 +38,11 @@ class MovingController : MonoBehaviour
     public void SetForceCoef(float coef)
     {
         _forceCoef = coef;
+    }
+
+    public void SetFlyingSpeed(float speed)
+    {
+        _flyingSpeed = speed;
     }
 
     public void StopJump()
@@ -83,6 +92,11 @@ class MovingController : MonoBehaviour
         }
     }
 
+    private void Fly()
+    {
+        _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, _flyingSpeed);
+    }
+
     private void Move()
     {
         float deltaX = Input.GetAxis("Horizontal") * _rotationSpeed * Time.deltaTime;
@@ -92,8 +106,8 @@ class MovingController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Move();
-        Jump();
+        if (_isFlying) { Fly(); }
+        else { Jump(); }
     }
 
     //Update is called once per frame

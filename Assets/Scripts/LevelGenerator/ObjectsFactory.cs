@@ -19,6 +19,10 @@ class ObjectsFactory
     private GameObject _weaponBoost;
     private GameObject _armorBoost;
 
+    private GameObject _bullet;
+    private GameObject _laserRay;
+    private GameObject _rocket;
+
     private GameObject _character;
 
     public GameObject GetPlatform(PlatformType type)
@@ -206,5 +210,52 @@ class ObjectsFactory
         }
 
         return UnityEngine.Object.Instantiate(_character);
+    }
+
+    public GameObject GetProjectile(WeaponType type)
+    {
+        GameObject projectile;
+        switch(type)
+        {
+            case WeaponType.Gun:
+                projectile = GetGunProjectile();
+                break;
+            case WeaponType.Laser:
+                projectile = GetLaserProjectile();
+                break;
+            case WeaponType.Rocket:
+                projectile = GetRocketProjectile();
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+        return UnityEngine.Object.Instantiate(projectile);
+    }
+
+    private GameObject GetGunProjectile()
+    {
+        if (!_bullet)
+        {
+            _bullet = Resources.Load<GameObject>(AssetPath.Boosts[BoostType.Weapon]);
+        }
+        return UnityEngine.Object.Instantiate(_bullet);
+    }
+
+    private GameObject GetLaserProjectile()
+    {
+        if (!_laserRay)
+        {
+            _laserRay = Resources.Load<GameObject>(AssetPath.Boosts[BoostType.Weapon]);
+        }
+        return UnityEngine.Object.Instantiate(_laserRay);
+    }
+
+    private GameObject GetRocketProjectile()
+    {
+        if (!_rocket)
+        {
+            _rocket = Resources.Load<GameObject>(AssetPath.Boosts[BoostType.Weapon]);
+        }
+        return UnityEngine.Object.Instantiate(_rocket);
     }
 }

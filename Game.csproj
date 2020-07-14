@@ -65,7 +65,9 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Character\AttackController.cs" />
     <Compile Include="Assets\Scripts\Character\Character.cs" />
+    <Compile Include="Assets\Scripts\Character\CharacterData.cs" />
     <Compile Include="Assets\Scripts\Character\MovingController.cs" />
+    <Compile Include="Assets\Scripts\Character\Visual.cs" />
     <Compile Include="Assets\Scripts\Game\Boost.cs" />
     <Compile Include="Assets\Scripts\Game\Coin.cs" />
     <Compile Include="Assets\Scripts\Game\ElementTypes.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="Assets\Scripts\LevelGenerator\LevelDataStructs.cs" />
     <Compile Include="Assets\Scripts\LevelGenerator\LevelGenerator.cs" />
     <Compile Include="Assets\Scripts\LevelGenerator\ObjectsFactory.cs" />
+    <Compile Include="Assets\Scripts\Stuff\Animations.cs" />
     <Compile Include="Assets\Scripts\Stuff\AssetPath.cs" />
     <Compile Include="Assets\Scripts\UI\InGameUi.cs" />
     <Reference Include="UnityEngine">

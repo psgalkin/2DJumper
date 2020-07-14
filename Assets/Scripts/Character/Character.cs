@@ -13,7 +13,8 @@ public class Character : MonoBehaviour
     private GameLogic _gameLogic;
     private MovingController _movingController;
     private AttackController _attackController;
-    private InGameUi _ui; 
+    private InGameUi _ui;
+    private Visual _visual;
 
     private const string _platformTag = "Platform";
     private const string _coinTag = "Coin";
@@ -24,10 +25,7 @@ public class Character : MonoBehaviour
     private bool _isHasArmor = false;
     private int _coinCount;
 
-    [SerializeField] private float _forceJumpCoef;
-    [SerializeField] private int _jetpackDuration;
-    [SerializeField] private int _magnetDuration;
-    [SerializeField] private int _armorDuration;
+    [SerializeField] private CharacterData _characterData;
 
     void Start()
     {
@@ -35,9 +33,18 @@ public class Character : MonoBehaviour
         _deltaCameraCharacter = Camera.main.orthographicSize / 3;
 
         _gameLogic = FindObjectOfType<GameLogic>();
+
         _movingController = GetComponent<MovingController>();
-        _movingController.SetForceCoef(_forceJumpCoef);
+        _movingController.SetForceCoef(_characterData.ForceJumpCoef);
+        _movingController.SetFlyingSpeed(_characterData.FlyingSpeed);
+
         _ui = FindObjectOfType<InGameUi>();
+        _visual = GetComponent<Visual>();
+    }
+
+    public float GetCoinSpeed()
+    {
+        return _characterData.CoinSpeed;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -74,7 +81,8 @@ public class Character : MonoBehaviour
         }
         else if (collision.CompareTag(_enemyTag))
         {
-            _gameLogic.Loss();
+            if (_isHasArmor) { StopArmor(); }
+            else { _gameLogic.Loss(); }
         }
     }
 
@@ -93,36 +101,47 @@ public class Character : MonoBehaviour
 
     private void StartJetpack()
     {
+        StopCoroutine(JetpackLogic());
         StartCoroutine(JetpackLogic());
     }
 
     private IEnumerator JetpackLogic()
     {
         _movingController.StartFlying();
-        for (int i = _jetpackDuration; i > 0; --i)
+        _visual.StartJetpack();
+
+
+        for (int i = _characterData.JetpackDuration; i > 0; --i)
         {
             _ui.BoostStatus($"Jetpack: {i}\n");
             yield return new WaitForSeconds(1.0f);
         }
         _ui.BoostStatus("");
+
         _movingController.StopFlying();
+        _visual.StopJetpack();
     }
 
     private void StartMagnet()
     {
+        StopCoroutine(MagnetLogic());
         StartCoroutine(MagnetLogic());
     }
 
     private IEnumerator MagnetLogic()
     {
         _isMagnetWorking = true;
-        for (int i = _magnetDuration; i > 0; --i)
+        _visual.StartMagnet();
+
+        for (int i = _characterData.MagnetDuration; i > 0; --i)
         {
             _ui.BoostStatus($"Magnet: {i}\n");
             yield return new WaitForSeconds(1.0f);
         }
         _ui.BoostStatus("");
+
         _isMagnetWorking = false;
+        _visual.StopMagnet();
     }
 
     public bool IsMagnetWorking() { return _isMagnetWorking; }
@@ -142,13 +161,22 @@ public class Character : MonoBehaviour
 
     private void StartArmor()
     {
+        StopCoroutine(ArmorLogic());
         StartCoroutine(ArmorLogic());
+    }
+
+    private void StopArmor()
+    {
+        StopCoroutine(ArmorLogic());
+
+        _ui.BoostStatus("");
+        _isHasArmor = false;
     }
 
     private IEnumerator ArmorLogic()
     {
         _isHasArmor = true;
-        for (int i = _armorDuration; i > 0; --i)
+        for (int i = _characterData.ArmorDuration; i > 0; --i)
         {
             if (!_isHasArmor) { break; }
             _ui.BoostStatus($"Armor: {i}\n");
