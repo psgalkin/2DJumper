@@ -15,8 +15,12 @@ public class LevelGenerator : MonoBehaviour
 
     private ObjectsFactory _factory;
 
+    private Camera _camera;
     private float _lvlWidth;
+    private float _lvlHeight;
     private Vector3 _platformSize;
+
+    private float _deltaPlatformEnd = 2.0f;
 
     private List<GameObject> _platforms = new List<GameObject>();
     private List<GameObject>_allObjects = new List<GameObject>();
@@ -26,10 +30,12 @@ public class LevelGenerator : MonoBehaviour
         _factory = new ObjectsFactory();
         _platformSize = _factory.PlatformSize();
 
-        Camera camera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
-        _lvlWidth = camera.orthographicSize * 2.0f * camera.aspect;
-        camera.transform.position = new Vector3(_lvlWidth / 2, camera.orthographicSize, camera.transform.position.z);
-        Debug.Log($"LWLWIDTH: {_lvlWidth}, ORT SIZE: {camera.orthographicSize * 2.0f}, ASPECT: {camera.aspect}");
+        _camera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+        _lvlWidth = _camera.orthographicSize * 2.0f * _camera.aspect;
+        _lvlHeight = _camera.orthographicSize * 2.0f;
+
+        _camera.transform.position = new Vector3(_lvlWidth / 2, _lvlHeight / 2, _camera.transform.position.z);
+        //Debug.Log($"LWLWIDTH: {_lvlWidth}, ORT SIZE: {camera.orthographicSize * 2.0f}, ASPECT: {camera.aspect}");
 
         Generate();
     }
@@ -41,6 +47,7 @@ public class LevelGenerator : MonoBehaviour
         GenerateBoosts();
         GenerateEnemys();
         GenerateCoins();
+        GenerateBorders();
     }
 
     private void GeneratePlatforms()
@@ -240,5 +247,33 @@ public class LevelGenerator : MonoBehaviour
     {
         GameObject character = _factory.GetCharacter();
         character.transform.position = new Vector3(_lvlWidth / 2, 1.5f);
+    }
+
+    private void GenerateBorders()
+    {
+        GameObject bottomBorder = _factory.GetBorder(BorderType.Bottom);
+        bottomBorder.transform.position = _camera.transform.position;
+        Vector2[] bottomPoints = new Vector2[] { new Vector2(-_lvlWidth / 2.0f, -_lvlHeight / 2.0f), new Vector2(_lvlWidth / 2.0f, -_lvlHeight / 2.0f) };
+        bottomBorder.GetComponent<EdgeCollider2D>().points = bottomPoints;
+
+        GameObject upperBorder = _factory.GetBorder(BorderType.Upper);
+        upperBorder.transform.position = _camera.transform.position;
+        Vector2[] upperPoints = new Vector2[] { new Vector2(-_lvlWidth / 2.0f, _lvlHeight / 2.0f), new Vector2(_lvlWidth / 2.0f, _lvlHeight / 2.0f) };
+        upperBorder.GetComponent<EdgeCollider2D>().points = upperPoints;
+
+        GameObject rightSideBorder = _factory.GetBorder(BorderType.Side); ;
+        rightSideBorder.transform.position = _camera.transform.position;
+        Vector2[] rightPoints = new Vector2[] { new Vector2(-_lvlWidth / 2.0f, -_lvlHeight / 2.0f), new Vector2(-_lvlWidth / 2.0f, _lvlHeight / 2.0f) };
+        rightSideBorder.GetComponent<EdgeCollider2D>().points = rightPoints;
+
+        GameObject leftSideBorder = _factory.GetBorder(BorderType.Side); ;
+        leftSideBorder.transform.position = _camera.transform.position;
+        Vector2[] leftPoints = new Vector2[] { new Vector2(_lvlWidth / 2.0f, -_lvlHeight / 2.0f), new Vector2(_lvlWidth / 2.0f, _lvlHeight / 2.0f) };
+        leftSideBorder.GetComponent<EdgeCollider2D>().points = leftPoints;
+
+        GameObject endLevelBorder = _factory.GetBorder(BorderType.EndLevel);
+        endLevelBorder.transform.position = new Vector3(_camera.transform.position.x, _platforms[_platforms.Count - 1].transform.position.y + _deltaPlatformEnd);
+        Vector2[] endPoints = new Vector2[] { new Vector2(-_lvlWidth / 2.0f, 0.0f), new Vector2(_lvlWidth / 2.0f, 0.0f) };
+        endLevelBorder.GetComponent<EdgeCollider2D>().points = endPoints;
     }
 }     

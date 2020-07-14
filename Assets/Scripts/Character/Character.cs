@@ -16,11 +16,6 @@ public class Character : MonoBehaviour
     private InGameUi _ui;
     private Visual _visual;
 
-    private const string _platformTag = "Platform";
-    private const string _coinTag = "Coin";
-    private const string _boostTag = "Boost";
-    private const string _enemyTag = "Enemy";
-
     private bool _isMagnetWorking = false;
     private bool _isHasArmor = false;
     private int _coinCount;
@@ -38,6 +33,8 @@ public class Character : MonoBehaviour
         _movingController.SetForceCoef(_characterData.ForceJumpCoef);
         _movingController.SetFlyingSpeed(_characterData.FlyingSpeed);
 
+        _attackController = GetComponent<AttackController>();
+
         _ui = FindObjectOfType<InGameUi>();
         _visual = GetComponent<Visual>();
     }
@@ -49,7 +46,7 @@ public class Character : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(_boostTag))
+        if (collision.CompareTag(Tag.Boost))
         {
             switch (collision.GetComponent<Boost>().GetType())
             {
@@ -74,12 +71,12 @@ public class Character : MonoBehaviour
                     break;
             }
         }
-        else if (collision.CompareTag(_coinTag))
+        else if (collision.CompareTag(Tag.Coin))
         {
             StartCoin();
             Destroy(collision.gameObject);
         }
-        else if (collision.CompareTag(_enemyTag))
+        else if (collision.CompareTag(Tag.Enemy))
         {
             if (_isHasArmor) { StopArmor(); }
             else { _gameLogic.Loss(); }
@@ -88,7 +85,7 @@ public class Character : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag(_boostTag) &&
+        if (collision.CompareTag(Tag.Boost) &&
             collision.GetComponent<Boost>().GetType() == BoostType.Trampoline)
         {
             _movingController.StopJump();
@@ -107,10 +104,10 @@ public class Character : MonoBehaviour
 
     private IEnumerator JetpackLogic()
     {
+        
         _movingController.StartFlying();
         _visual.StartJetpack();
-
-
+        
         for (int i = _characterData.JetpackDuration; i > 0; --i)
         {
             _ui.BoostStatus($"Jetpack: {i}\n");
@@ -149,7 +146,6 @@ public class Character : MonoBehaviour
     private void StartWeapon()
     {
         _attackController.SetWeapon(WeaponType.Laser);
-        throw new NotImplementedException();
     }
 
     private IEnumerator WeaponLogic()

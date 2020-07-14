@@ -30,4 +30,22 @@ class AssetPath
             {EnemyType.Barrier, "Enemys/Barrier" },
             {EnemyType.Pusher, "Enemys/Pusher" }
         };
+
+    public static readonly Dictionary<WeaponType, string> Projectiles =
+        new Dictionary<WeaponType, string>
+        {
+            {WeaponType.Gun, "Projectiles/Bullet" },
+            {WeaponType.Laser, "Projectiles/Laser" },
+            {WeaponType.Rocket, "Projectiles/Rocket" }
+        };
+
+    public static readonly Dictionary<BorderType, string> Borders =
+        new Dictionary<BorderType, string>
+        {
+            {BorderType.Bottom, "Borders/Bottom" },
+            {BorderType.Upper, "Borders/Upper" },
+            {BorderType.EndLevel, "Borders/EndLevel" },
+            {BorderType.Side, "Borders/Side" }
+        };
+
 }

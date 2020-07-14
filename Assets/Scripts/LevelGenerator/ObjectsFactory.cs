@@ -25,6 +25,11 @@ class ObjectsFactory
 
     private GameObject _character;
 
+    private GameObject _bottomBorder;
+    private GameObject _upperBorder;
+    private GameObject _endLevelBorder;
+    private GameObject _sideBorder;
+
     public GameObject GetPlatform(PlatformType type)
     {
         GameObject platform;
@@ -208,7 +213,6 @@ class ObjectsFactory
         {
             _character = Resources.Load<GameObject>(AssetPath.Character);
         }
-
         return UnityEngine.Object.Instantiate(_character);
     }
 
@@ -236,26 +240,86 @@ class ObjectsFactory
     {
         if (!_bullet)
         {
-            _bullet = Resources.Load<GameObject>(AssetPath.Boosts[BoostType.Weapon]);
+            _bullet = Resources.Load<GameObject>(AssetPath.Projectiles[WeaponType.Gun]);
         }
-        return UnityEngine.Object.Instantiate(_bullet);
+        return _bullet;
     }
 
     private GameObject GetLaserProjectile()
     {
         if (!_laserRay)
         {
-            _laserRay = Resources.Load<GameObject>(AssetPath.Boosts[BoostType.Weapon]);
+            _laserRay = Resources.Load<GameObject>(AssetPath.Projectiles[WeaponType.Laser]);
         }
-        return UnityEngine.Object.Instantiate(_laserRay);
+        return _laserRay;
     }
 
     private GameObject GetRocketProjectile()
     {
         if (!_rocket)
         {
-            _rocket = Resources.Load<GameObject>(AssetPath.Boosts[BoostType.Weapon]);
+            _rocket = Resources.Load<GameObject>(AssetPath.Projectiles[WeaponType.Rocket]);
         }
-        return UnityEngine.Object.Instantiate(_rocket);
+        return _rocket;
+    }
+
+    public GameObject GetBorder(BorderType type)
+    {
+        GameObject border;
+        switch (type)
+        {
+            case BorderType.Upper:
+                border = GetUpperBorder();
+                break;
+            case BorderType.Bottom:
+                border = GetBottomBorder();
+                break;
+            case BorderType.EndLevel:
+                border = GetEndLevelBorder();
+                return UnityEngine.Object.Instantiate(border);
+                break;
+            case BorderType.Side:
+                border = GetSideBorder();
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+        return UnityEngine.Object.Instantiate(border, Camera.main.transform);
+    }
+
+    private GameObject GetUpperBorder()
+    {
+        if (!_upperBorder)
+        {
+            _upperBorder = Resources.Load<GameObject>(AssetPath.Borders[BorderType.Upper]);
+        }
+        return _upperBorder;
+    }
+
+    private GameObject GetBottomBorder()
+    {
+        if (!_bottomBorder)
+        {
+            _bottomBorder = Resources.Load<GameObject>(AssetPath.Borders[BorderType.Bottom]);
+        }
+        return _bottomBorder;
+    }
+
+    private GameObject GetEndLevelBorder()
+    {
+        if (!_endLevelBorder)
+        {
+            _endLevelBorder = Resources.Load<GameObject>(AssetPath.Borders[BorderType.EndLevel]);
+        }
+        return _endLevelBorder;
+    }
+
+    private GameObject GetSideBorder()
+    {
+        if (!_sideBorder)
+        {
+            _sideBorder = Resources.Load<GameObject>(AssetPath.Borders[BorderType.Side]);
+        }
+        return _sideBorder;
     }
 }

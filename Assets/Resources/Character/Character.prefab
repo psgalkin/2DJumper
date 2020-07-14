@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 3521041595305791639}
   m_Layer: 0
   m_Name: Character
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -287,6 +287,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84435b38159067b458f28b2a4b5c36d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gunSpeed: 15
+  _gunPeriod: 1
+  _laserDuration: 1
+  _laserPeriod: 1
+  _rocketSpeed: 15
+  _rocketPeriod: 1
 --- !u!114 &3521041595305791639
 MonoBehaviour:
   m_ObjectHideFlags: 0
