@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 8407690665440189549}
   - component: {fileID: 7836541009376723768}
   m_Layer: 0
-  m_Name: SideBorder
-  m_TagString: Untagged
+  m_Name: Side
+  m_TagString: Border
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

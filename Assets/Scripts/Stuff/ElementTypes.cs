@@ -20,8 +20,9 @@ public enum BoostType
     Jetpack = 1,
     Trampoline = 2,
     Magnet = 3,
-    Weapon = 4,
-    Armor = 5
+    WeaponLaser = 4,
+    WeaponRocket = 5,
+    Armor = 6
 }
 
 public enum WeaponType

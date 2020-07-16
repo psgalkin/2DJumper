@@ -15,6 +15,7 @@ public class Character : MonoBehaviour
     private AttackController _attackController;
     private InGameUi _ui;
     private Visual _visual;
+    private Rigidbody2D _rigidbody;
 
     private bool _isMagnetWorking = false;
     private bool _isHasArmor = false;
@@ -35,6 +36,7 @@ public class Character : MonoBehaviour
 
         _attackController = GetComponent<AttackController>();
 
+        _rigidbody = GetComponent<Rigidbody2D>();
         _ui = FindObjectOfType<InGameUi>();
         _visual = GetComponent<Visual>();
     }
@@ -61,8 +63,12 @@ public class Character : MonoBehaviour
                     StartMagnet();
                     Destroy(collision.gameObject);
                     break;
-                case BoostType.Weapon:
-                    StartWeapon();
+                case BoostType.WeaponRocket:
+                    StartWeapon(WeaponType.Rocket);
+                    Destroy(collision.gameObject);
+                    break;
+                case BoostType.WeaponLaser:
+                    StartWeapon(WeaponType.Laser);
                     Destroy(collision.gameObject);
                     break;
                 case BoostType.Armor:
@@ -80,6 +86,35 @@ public class Character : MonoBehaviour
         {
             if (_isHasArmor) { StopArmor(); }
             else { _gameLogic.Loss(); }
+        }
+        else if (collision.CompareTag(Tag.Border))
+        {
+            switch (collision.GetComponent<Border>().GetType())
+            {
+                case BorderType.Bottom:
+                    _gameLogic.Loss();
+                    break;
+                case BorderType.EndLevel:
+                    _gameLogic.Win();
+                    break;
+            }
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (_rigidbody.velocity.y < 0.01f
+            && collision.gameObject.CompareTag(Tag.Platform))
+        {
+            switch (collision.gameObject.GetComponent<Platform>().GetType())
+            {
+                case PlatformType.Brokening:
+                    Destroy(collision.gameObject);
+                    break;
+                case PlatformType.Trap:
+                    _movingController.RandomJump();
+                    break;
+            }
         }
     }
 
@@ -143,9 +178,9 @@ public class Character : MonoBehaviour
 
     public bool IsMagnetWorking() { return _isMagnetWorking; }
 
-    private void StartWeapon()
+    private void StartWeapon(WeaponType type)
     {
-        _attackController.SetWeapon(WeaponType.Laser);
+        _attackController.SetWeapon(type);
     }
 
     private IEnumerator WeaponLogic()

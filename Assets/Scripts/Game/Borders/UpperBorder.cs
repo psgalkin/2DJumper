@@ -1,9 +1,14 @@
 ﻿using UnityEngine;
-class UpperBorder : MonoBehaviour
+class UpperBorder : Border
 {
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void Start()
     {
-        if (collision.gameObject.CompareTag(Tag.Projectile))
+        _type = BorderType.Upper;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag(Tag.Projectile))
         {
             Destroy(collision.gameObject);
         }

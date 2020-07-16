@@ -1,19 +1,9 @@
 ﻿using UnityEngine;
 
-class EndLevelBorder : MonoBehaviour
+class EndLevelBorder : Border
 {
-    GameLogic _gameLogic;
-
     private void Start()
     {
-        _gameLogic = FindObjectOfType<GameLogic>();
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag(Tag.Player))
-        {
-            _gameLogic.Win();
-        }
+        _type = BorderType.EndLevel;
     }
 }

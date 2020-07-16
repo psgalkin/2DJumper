@@ -18,23 +18,49 @@ MonoBehaviour:
     IntervalEnd: 25
     MinDist: 0
     MaxDist: 1
+    MovingPlatformSpeed: 0.5
+    PlatformsRatio:
+    - Type: 1
+      Ratio: 4
+    - Type: 3
+      Ratio: 1
   - IntervalStart: 25
     IntervalEnd: 50
     MinDist: 0.5
     MaxDist: 1.5
+    MovingPlatformSpeed: 1
+    PlatformsRatio:
+    - Type: 1
+      Ratio: 1
+    - Type: 3
+      Ratio: 1
+    - Type: 2
+      Ratio: 1
   - IntervalStart: 50
     IntervalEnd: 75
     MinDist: 2
     MaxDist: 3
+    MovingPlatformSpeed: 2
+    PlatformsRatio:
+    - Type: 3
+      Ratio: 1
+    - Type: 2
+      Ratio: 2
+    - Type: 4
+      Ratio: 2
   - IntervalStart: 75
-    IntervalEnd: 100
+    IntervalEnd: 140
     MinDist: 2.5
     MaxDist: 3.5
+    MovingPlatformSpeed: 3
+    PlatformsRatio:
+    - Type: 3
+      Ratio: 1
   CoinIntervals:
   - IntervalStart: 0
     IntervalEnd: 50
-    Number: 10
-  - IntervalStart: 50
+    Number: 15
+  - IntervalStart: 70
     IntervalEnd: 100
     Number: 15
   EnemyIntervals: []
@@ -62,6 +88,12 @@ MonoBehaviour:
       Probability: 100
   - IntervalStart: 0
     IntervalEnd: 15
+    TypesNumbersProbabilitys:
+    - BoostType: 1
+      Number: 1
+      Probability: 100
+  - IntervalStart: 115
+    IntervalEnd: 125
     TypesNumbersProbabilitys:
     - BoostType: 1
       Number: 1

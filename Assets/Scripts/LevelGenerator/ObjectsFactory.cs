@@ -7,6 +7,7 @@ class ObjectsFactory
     private GameObject _simplePlatform;
     private GameObject _brokeningPlatform;
     private GameObject _movingPlatform;
+    private GameObject _trapPlatform;
 
     private GameObject _coin;
 
@@ -16,7 +17,8 @@ class ObjectsFactory
     private GameObject _jetpackBoost;
     private GameObject _trampolineBoost;
     private GameObject _magnetBoost;
-    private GameObject _weaponBoost;
+    private GameObject _weaponLaserBoost;
+    private GameObject _weaponRocketBoost;
     private GameObject _armorBoost;
 
     private GameObject _bullet;
@@ -43,6 +45,9 @@ class ObjectsFactory
                 break;
             case PlatformType.Moving:
                 platform = GetMovingPlatform();
+                break;
+            case PlatformType.Trap:
+                platform = GetTrapPlatform();
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -91,6 +96,15 @@ class ObjectsFactory
         return _movingPlatform;
     }
 
+    private GameObject GetTrapPlatform()
+    {
+        if (!_trapPlatform)
+        {
+            _trapPlatform = Resources.Load<GameObject>(AssetPath.Platforms[PlatformType.Trap]);
+        }
+        return _trapPlatform;
+    }
+
     public GameObject GetCoin()
     {
         if (!_coin)
@@ -136,7 +150,7 @@ class ObjectsFactory
         return _pusherEnemy;
     }
 
-    public GameObject GetBoost(BoostType type)
+    public GameObject GetBoost(BoostType type, Transform transform)
     {
         GameObject boost;
         switch (type)
@@ -150,8 +164,11 @@ class ObjectsFactory
             case BoostType.Magnet:
                 boost = GetMagnetBoost();
                 break;
-            case BoostType.Weapon:
-                boost = GetWeaponBoost();
+            case BoostType.WeaponLaser:
+                boost = GetWeaponLaserBoost();
+                break;
+            case BoostType.WeaponRocket:
+                boost = GetWeaponRocketBoost();
                 break;
             case BoostType.Armor:
                 boost = GetArmorBoost();
@@ -159,7 +176,7 @@ class ObjectsFactory
             default:
                 throw new ArgumentOutOfRangeException();
         }
-        return UnityEngine.Object.Instantiate(boost);
+        return UnityEngine.Object.Instantiate(boost, transform);
     }
 
     private GameObject GetJetpackBoost()
@@ -189,13 +206,22 @@ class ObjectsFactory
         return _magnetBoost;
     }
 
-    private GameObject GetWeaponBoost()
+    private GameObject GetWeaponLaserBoost()
     {
-        if (!_weaponBoost)
+        if (!_weaponLaserBoost)
         {
-            _weaponBoost = Resources.Load<GameObject>(AssetPath.Boosts[BoostType.Weapon]);
+            _weaponLaserBoost = Resources.Load<GameObject>(AssetPath.Boosts[BoostType.WeaponLaser]);
         }
-        return _weaponBoost;
+        return _weaponLaserBoost;
+    }
+
+    private GameObject GetWeaponRocketBoost()
+    {
+        if (!_weaponRocketBoost)
+        {
+            _weaponRocketBoost = Resources.Load<GameObject>(AssetPath.Boosts[BoostType.WeaponRocket]);
+        }
+        return _weaponRocketBoost;
     }
 
     private GameObject GetArmorBoost()

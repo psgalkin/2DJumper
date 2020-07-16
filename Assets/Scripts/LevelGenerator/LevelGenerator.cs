@@ -60,17 +60,60 @@ public class LevelGenerator : MonoBehaviour
         float startPos = _platforms[0].transform.position.y + _platformSize.y * 1.5f;
         foreach (PlatformInterval platformInterval in _data.PlatformIntervals)
         {
+            Dictionary<PlatformType, float> ratios = ComputeRatios(platformInterval.PlatformsRatio);
+
             for (float currentHeight = platformInterval.IntervalStart + startPos; 
                 currentHeight < platformInterval.IntervalEnd; 
                 currentHeight += (Random.Range(platformInterval.MinDist, platformInterval.MaxDist) + _platformSize.y))
             {
-                GameObject platform = _factory.GetPlatform(PlatformType.Simple);
+                PlatformType type = GetPlatformType(ratios);
+                GameObject platform = _factory.GetPlatform(type);
+
+                if (type == PlatformType.Moving) {
+                    platform.GetComponent<MovingPlatform>().SetSpeed(platformInterval.MovingPlatformSpeed);
+                }
+
+
                 Vector3 position = new Vector3(Random.Range(_platformSize.x / 2, _lvlWidth - _platformSize.x / 2), currentHeight);
                 platform.transform.position = position;
                 _platforms.Add(platform);
                 _allObjects.Add(platform);
             }                 
         }
+    }
+
+    private Dictionary<PlatformType, float> ComputeRatios(PlatformData[] input)
+    {
+        int sum = 0;
+        foreach (var element in input)
+        {
+            sum += element.Ratio;
+        }
+
+        float coef = 100f / sum;
+        float computed = 0;
+
+        Dictionary<PlatformType, float> output = new Dictionary<PlatformType, float>();
+        foreach (var element in input)
+        {
+            output[element.Type] = computed + element.Ratio * coef;
+            computed += (element.Ratio * coef);
+        }
+
+        return output;
+    }
+
+
+    private PlatformType GetPlatformType(Dictionary<PlatformType, float> ratios)
+    {
+        float probability = Random.Range(0f, 100f);
+
+        foreach (var element in ratios)
+        {
+            if (probability < element.Value) { return element.Key; }    
+        }
+
+        return PlatformType.Simple;
     }
 
     private void GenerateBoosts()
@@ -98,12 +141,26 @@ public class LevelGenerator : MonoBehaviour
                     if (Random.Range(0, 100) < data.Probability)
                     {
                         int platformNum = Random.Range(0, positionsInInterval.Count);
-                        GameObject boost = _factory.GetBoost(data.BoostType);
+
+                        Transform  transform = _platforms[0].transform;
+                        foreach (GameObject platform in _platforms)
+                        {
+                            if (platform.transform.position.y == positionsInInterval[platformNum].y)
+                            {
+                                transform = platform.transform;
+                                break;
+                            }
+                        }
+
+                        GameObject boost = _factory.GetBoost(data.BoostType, transform);
+                        boost.transform.localScale = new Vector3(boost.transform.localScale.x / 0.3f, boost.transform.localScale.y / 0.3f);
+                        
+                        // TODO: bostFisedSize
                         Vector2 boostSize = boost.GetComponent<BoxCollider2D>().size * boost.GetComponent<BoxCollider2D>().transform.localScale;
 
                         boost.transform.position = new Vector3(
                             positionsInInterval[platformNum].x,
-                            positionsInInterval[platformNum].y + _platformSize.y / 2 + deltaBoostPlatform + boostSize.y / 2);
+                            positionsInInterval[platformNum].y + _platformSize.y / 2 + deltaBoostPlatform + boostSize.y / 2 * 0.3f);
 
                         _allObjects.Add(boost);
                         positionsInInterval.RemoveAt(platformNum);

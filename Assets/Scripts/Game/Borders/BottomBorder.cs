@@ -1,29 +1,16 @@
 ﻿using UnityEngine;
-class BottomBorder : MonoBehaviour
+class BottomBorder : Border
 {
-    private GameLogic _gameLogic;
-
     private void Start()
     {
-        _gameLogic = FindObjectOfType<GameLogic>();
+        _type = BorderType.Bottom;
     }
-
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag(Tag.Player))
-        {
-            _gameLogic.Loss();
-        }
-        else
+        if (!collision.CompareTag(Tag.Player))
         {
             Destroy(collision.gameObject);
         }
     }
-
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-        
-
-    //}
 }

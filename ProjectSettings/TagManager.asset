@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Platform
   - Projectile
+  - Border
   layers:
   - Default
   - TransparentFX

@@ -3,13 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
+public class PlatformData
+{
+    public PlatformType Type;
+    public int Ratio;
+}
+
+[Serializable]
 public class PlatformInterval
 {
     public float IntervalStart;
     public float IntervalEnd;
     public float MinDist;
     public float MaxDist;
-    public Dictionary<PlatformType, int> PlatformsProbabilitys;
+    public float MovingPlatformSpeed = 1;
+    public PlatformData[] PlatformsRatio;
 }
 
 [Serializable]
@@ -25,6 +33,7 @@ public class EnemyIntervalData
 {
     public EnemyType EnemyType;
     public int Number;
+    public int StrikerAttackSpeed;
     [Range(0, 100)] public int Probability;
 }
 

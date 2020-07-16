@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -8091322691899177147}
   - component: {fileID: -8801425179868880759}
   - component: {fileID: -5204370773807854694}
-  - component: {fileID: -5332799025984097434}
+  - component: {fileID: -234140516593069096}
   m_Layer: 0
   m_Name: Simple
   m_TagString: Platform
@@ -151,7 +151,7 @@ PlatformEffector2D:
   m_UseSideFriction: 1
   m_UseSideBounce: 0
   m_SideArc: 20
---- !u!114 &-5332799025984097434
+--- !u!114 &-234140516593069096
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

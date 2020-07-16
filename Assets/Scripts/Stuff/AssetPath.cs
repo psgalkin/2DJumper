@@ -20,7 +20,8 @@ class AssetPath
             {BoostType.Trampoline, "Boosts/Trampoline" },
             {BoostType.Jetpack, "Boosts/Jetpack" },
             {BoostType.Magnet, "Boosts/Magnet" },
-            {BoostType.Weapon, "Boosts/Weapon" },
+            {BoostType.WeaponLaser, "Boosts/WeaponLaser" },
+            {BoostType.WeaponRocket, "Boosts/WeaponRocket" },
             {BoostType.Armor, "Boosts/Armor" }
         };
 
