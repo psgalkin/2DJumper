@@ -67,14 +67,14 @@ public class Character : MonoBehaviour
                     StartMagnet();
                     Destroy(collision.gameObject);
                     break;
-                //case BoostType.WeaponRocket:
-                //    StartWeapon(WeaponType.Rocket);
-                //    Destroy(collision.gameObject);
-                //    break;
-                //case BoostType.WeaponLaser:
-                //    StartWeapon(WeaponType.Laser);
-                //    Destroy(collision.gameObject);
-                //    break;
+                case BoostType.WeaponRocket:
+                    StartWeapon(WeaponType.Rocket);
+                    Destroy(collision.gameObject);
+                    break;
+                case BoostType.WeaponLaser:
+                    StartWeapon(WeaponType.Laser);
+                    Destroy(collision.gameObject);
+                    break;
                 case BoostType.Armor:
                     StartArmor();
                     Destroy(collision.gameObject);

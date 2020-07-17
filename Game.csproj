@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\Character\Character.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterData.cs" />
     <Compile Include="Assets\Scripts\Character\MovingController.cs" />
+    <Compile Include="Assets\Scripts\Character\TargetManager.cs" />
     <Compile Include="Assets\Scripts\Character\Visual.cs" />
     <Compile Include="Assets\Scripts\Game\Borders\Border.cs" />
     <Compile Include="Assets\Scripts\Game\Borders\BottomBorder.cs" />
@@ -76,8 +77,10 @@
     <Compile Include="Assets\Scripts\Game\Elements\Boost.cs" />
     <Compile Include="Assets\Scripts\Game\Elements\Coin.cs" />
     <Compile Include="Assets\Scripts\Game\Elements\Enemy.cs" />
+    <Compile Include="Assets\Scripts\Game\Elements\Explosion.cs" />
     <Compile Include="Assets\Scripts\Game\Elements\MovingPlatform.cs" />
     <Compile Include="Assets\Scripts\Game\Elements\Platform.cs" />
+    <Compile Include="Assets\Scripts\Game\Elements\Rocket.cs" />
     <Compile Include="Assets\Scripts\Game\Elements\StrikerEnemy.cs" />
     <Compile Include="Assets\Scripts\Game\GameLogic.cs" />
     <Compile Include="Assets\Scripts\LevelGenerator\LevelData.cs" />

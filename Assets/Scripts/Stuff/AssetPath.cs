@@ -37,7 +37,8 @@ class AssetPath
         {
             {WeaponType.Gun, "Projectiles/Bullet" },
             {WeaponType.Laser, "Projectiles/Laser" },
-            {WeaponType.Rocket, "Projectiles/Rocket" }
+            {WeaponType.Rocket, "Projectiles/Rocket" },
+            {WeaponType.Explosion, "Projectiles/Explosion" }
         };
 
     public static readonly Dictionary<BorderType, string> Borders =

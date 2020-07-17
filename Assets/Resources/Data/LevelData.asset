@@ -68,7 +68,7 @@ MonoBehaviour:
     IntervalEnd: 70
     TypesNumbersProbabilitys:
     - EnemyType: 1
-      Number: 3
+      Number: 6
       StrikerAttackSpeed: 0
       Probability: 100
   - IntervalStart: 80

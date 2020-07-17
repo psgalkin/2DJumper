@@ -24,6 +24,7 @@ class ObjectsFactory
     private GameObject _bullet;
     private GameObject _laserRay;
     private GameObject _rocket;
+    private GameObject _explosion;
 
     private GameObject _character;
 
@@ -256,6 +257,9 @@ class ObjectsFactory
             case WeaponType.Rocket:
                 projectile = GetRocketProjectile();
                 break;
+            case WeaponType.Explosion:
+                projectile = GetExplosion();
+                break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
@@ -287,6 +291,15 @@ class ObjectsFactory
             _rocket = Resources.Load<GameObject>(AssetPath.Projectiles[WeaponType.Rocket]);
         }
         return _rocket;
+    }
+
+    private GameObject GetExplosion()
+    {
+        if (!_explosion)
+        {
+            _explosion = Resources.Load<GameObject>(AssetPath.Projectiles[WeaponType.Explosion]);
+        }
+        return _explosion;
     }
 
     public GameObject GetBorder(BorderType type)

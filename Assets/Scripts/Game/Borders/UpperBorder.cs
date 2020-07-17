@@ -12,5 +12,9 @@ class UpperBorder : Border
         {
             Destroy(collision.gameObject);
         }
+        else if (collision.CompareTag(Tag.Enemy))
+        {
+            TargetManager.AddEnemyToTarget(collision.GetComponent<Enemy>());
+        }
     }
 }

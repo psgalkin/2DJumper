@@ -4,7 +4,7 @@ using System.Collections;
 
 class AttackController : MonoBehaviour
 {
-    private WeaponType _weaponType = WeaponType.Gun;
+    private WeaponType _weaponType = WeaponType.Rocket;
     private ObjectsFactory _factory = new ObjectsFactory();
 
     [SerializeField] private float _gunSpeed;
@@ -33,6 +33,7 @@ class AttackController : MonoBehaviour
         {
             Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
+            // TODO Add periods
             switch (_weaponType)
             {
                 case WeaponType.Gun:
@@ -42,15 +43,16 @@ class AttackController : MonoBehaviour
                     _lastShootTime = Time.time;
                     break;
                 case WeaponType.Laser:
-                    if (Time.time - _lastShootTime > _laserPeriod) {
+                    //if (Time.time - _lastShootTime > _laserPeriod) {
                         StartLaser(ref target);
-                    }
+                    //}
                     _lastShootTime = Time.time;
                     break;
                 case WeaponType.Rocket:
-                    if (Time.time - _lastShootTime > _rocketPeriod) {
-                        _lastShootTime = Time.time;
-                    }
+                    //if (Time.time - _lastShootTime > _rocketPeriod) {
+                        StartRocket(ref target);    
+                    //}
+                    _lastShootTime = Time.time;
                     break;
             }
         }
@@ -64,7 +66,7 @@ class AttackController : MonoBehaviour
         projectile.transform.position = transform.position;
         
         float angle = (target.x - pos.x > 0.0f) ?
-            (float)(Math.Atan((target.y - pos.y)/ (target.x - pos.x) ) * 180f / Math.PI) :
+            (float)(Math.Atan((target.y - pos.y) / (target.x - pos.x) ) * 180f / Math.PI) :
             180f + (float)(Math.Atan((target.y - pos.y) / (target.x - pos.x)) * 180f / Math.PI);
         Quaternion quat = Quaternion.Euler(0.0f, 0.0f, angle);
    
@@ -76,38 +78,57 @@ class AttackController : MonoBehaviour
     private void StartLaser(ref Vector3 target)
     {
         Vector2 startLaserPoint = new Vector2(transform.position.x, transform.position.y);
-        Vector2 endLaserPoint = Vector2.zero;
-        RaycastHit2D[] hits = Physics2D.RaycastAll(startLaserPoint, new Vector2(target.x, target.y), _rayDistance);
+        Vector2 endLaserPoint = new Vector2(target.x, target.y);
+        
+        RaycastHit2D[] hits = Physics2D.RaycastAll(startLaserPoint, new Vector2(target.x - transform.position.x, target.y - transform.position.y));
         
         foreach (var hit in hits) 
         {
-            if (hit.collider.CompareTag(Tag.Border)) 
+            if (hit.collider.CompareTag(Tag.Border))  
             {
                 endLaserPoint = new Vector2(
-                    hit.collider.transform.position.x,
-                    hit.collider.transform.position.y);
+                    hit.point.x,
+                    hit.point.y);
                 break;
             }
         }
 
+        // берем центральную точку
         Vector2 middleLaserPoint = new Vector2(
             (endLaserPoint.x / 2 + startLaserPoint.x / 2),
             (endLaserPoint.y / 2 + startLaserPoint.y / 2));
 
         GameObject projectile = _factory.GetProjectile(_weaponType);
 
+        // генерим в нее объект
         projectile.transform.position = middleLaserPoint;
-        projectile.transform.rotation = Quaternion.FromToRotation(startLaserPoint, endLaserPoint);
 
-        Rect rect = projectile.GetComponent<Sprite>().rect;
-        rect.height = (endLaserPoint - startLaserPoint).magnitude;
-        rect.width = 0.2f;      
+        // раворачиваем объект чтобы развернулся спрайт
+        float angle = (endLaserPoint.x - middleLaserPoint.x > 0.0f) ?
+            (float)(Math.Atan((endLaserPoint.y - middleLaserPoint.y) / (endLaserPoint.x - middleLaserPoint.x)) * 180f / Math.PI) :
+            180f + (float)(Math.Atan((endLaserPoint.y - middleLaserPoint.y) / (endLaserPoint.x - middleLaserPoint.x)) * 180f / Math.PI);
+        
+        Quaternion quat = Quaternion.Euler(0.0f, 0.0f, angle);
 
+        projectile.GetComponentInChildren<SpriteRenderer>().transform.rotation *= quat;
+
+        // крутим масштабы спрайта
+        float spriteX = projectile.GetComponentInChildren<SpriteRenderer>().bounds.size.x;
+        float spriteY = projectile.GetComponentInChildren<SpriteRenderer>().bounds.size.y;
+        float coefX = (endLaserPoint - startLaserPoint).magnitude / spriteY;
+        float coefY = 0.2f / spriteX;
+
+        projectile.GetComponentInChildren<SpriteRenderer>().gameObject.transform.localScale =
+            new Vector3(coefX, coefY, 1.0f);
+
+        // добавляем коллайдер
         Vector2[] rayPoints = new Vector2[] { 
             new Vector2(endLaserPoint.x - middleLaserPoint.x, endLaserPoint.y - middleLaserPoint.y), 
-            new Vector2(middleLaserPoint.x - startLaserPoint.x, middleLaserPoint.y - startLaserPoint.y) };
+            new Vector2(startLaserPoint.x - middleLaserPoint.x, startLaserPoint.y - middleLaserPoint.y) };
 
         projectile.GetComponent<EdgeCollider2D>().points = rayPoints;
+             
+
 
         StartCoroutine(DestroyLaserRay(projectile));
     } 
@@ -118,14 +139,24 @@ class AttackController : MonoBehaviour
         Destroy(ray);
     }
 
-    private void StartRocket(ref Vector3 target)
+    private void StartRocket(ref Vector3 pointTarget)
     {
-//        GameObject projectile = _factory.GetProjectile(_weaponType);
+        Vector3 target = (TargetManager.GetEnemy(transform)) ?
+            TargetManager.GetEnemy(transform).transform.position : pointTarget;
 
-//        projectile.transform.position = transform.position;
-//        projectile.transform.rotation = Quaternion.FromToRotation(transform.position, target);
+        Vector3 pos = new Vector3(transform.position.x, transform.position.y, target.z);
+        GameObject projectile = _factory.GetProjectile(_weaponType);
 
-//        projectile.GetComponent<Rigidbody2D>().velocity = (new Vector2(target.x - transform.position.x, target.y - transform.position.y)).normalized * _gunSpeed;
-//       
+        projectile.transform.position = transform.position;
+
+        float angle = (target.x - pos.x > 0.0f) ?
+            (float)(Math.Atan((target.y - pos.y) / (target.x - pos.x)) * 180f / Math.PI) :
+            180f + (float)(Math.Atan((target.y - pos.y) / (target.x - pos.x)) * 180f / Math.PI);
+        Quaternion quat = Quaternion.Euler(0.0f, 0.0f, angle);
+
+        projectile.transform.rotation *= quat;
+
+        projectile.GetComponent<Rigidbody2D>().velocity = (new Vector2(target.x - transform.position.x, target.y - transform.position.y)).normalized * _gunSpeed;
+
     }
 }

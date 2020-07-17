@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     [SerializeField] private EnemyType _type;
 
@@ -8,7 +8,11 @@ class Enemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag(Tag.Projectile))
         {
-            Destroy(collision.gameObject);
+            if (collision.GetComponent<Rocket>())
+            {
+                collision.GetComponent<Rocket>().StartExplosion();
+            }
+            else { Destroy(collision.gameObject); }
             Destroy(gameObject);
         }
     }

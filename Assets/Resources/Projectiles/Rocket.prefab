@@ -92,8 +92,9 @@ GameObject:
   - component: {fileID: 3207322187445915344}
   - component: {fileID: 873935852177355147}
   - component: {fileID: 4624496190106289107}
+  - component: {fileID: 4452483815124640864}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: Rocket
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -124,7 +125,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.074801885, y: 0}
@@ -161,3 +162,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &4452483815124640864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9184999648369860454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5f164bfa183c9842bd7bfdb7d3d324c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

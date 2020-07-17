@@ -30,7 +30,8 @@ public enum WeaponType
     None = 0,
     Gun = 1,
     Laser = 2,
-    Rocket = 3
+    Rocket = 3,
+    Explosion = 4
 }
 
 public enum BorderType
