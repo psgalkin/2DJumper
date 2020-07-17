@@ -25,7 +25,7 @@ public class Character : MonoBehaviour
 
     [SerializeField] private CharacterData _characterData;
 
-    void Start()
+    void Awake()
     {
         _camera = FindObjectOfType<Camera>();
 
