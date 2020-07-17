@@ -21,8 +21,8 @@ MonoBehaviour:
     MovingPlatformSpeed: 0.5
     PlatformsRatio:
     - Type: 1
-      Ratio: 4
-    - Type: 3
+      Ratio: 1
+    - Type: 2
       Ratio: 1
   - IntervalStart: 25
     IntervalEnd: 50

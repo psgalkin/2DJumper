@@ -21,12 +21,16 @@ public class Character : MonoBehaviour
     private bool _isHasArmor = false;
     private int _coinCount;
 
+    private float _lvlWidth;
+
     [SerializeField] private CharacterData _characterData;
 
     void Start()
     {
         _camera = FindObjectOfType<Camera>();
+
         _deltaCameraCharacter = Camera.main.orthographicSize / 3;
+        _lvlWidth = Camera.main.orthographicSize * 2.0f * Camera.main.aspect;
 
         _gameLogic = FindObjectOfType<GameLogic>();
 
@@ -226,6 +230,7 @@ public class Character : MonoBehaviour
     void Update()
     {
         SetCameraHeight();
+        SwitchBorder();
     }
 
     private void SetCameraHeight()
@@ -234,6 +239,20 @@ public class Character : MonoBehaviour
             _maxHeightChracterPosition = transform.position.y;
             _camera.transform.position = new Vector3(_camera.transform.position.x,
                 _maxHeightChracterPosition + _deltaCameraCharacter, _camera.transform.position.z );
+        }
+    }
+
+    private void SwitchBorder()
+    {
+        if (transform.position.x <= 0)
+        {
+            transform.position = new Vector3(
+                transform.position.x + _lvlWidth, transform.position.y, transform.position.z);
+        }
+        else if (transform.position.x >= _lvlWidth)
+        {
+            transform.position = new Vector3(
+                transform.position.x - _lvlWidth, transform.position.y, transform.position.z);
         }
     }
 }
