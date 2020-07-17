@@ -29,7 +29,7 @@ public class Character : MonoBehaviour
     {
         _camera = FindObjectOfType<Camera>();
 
-        _deltaCameraCharacter = Camera.main.orthographicSize / 3;
+        _deltaCameraCharacter =  Camera.main.orthographicSize / 5;
         _lvlWidth = Camera.main.orthographicSize * 2.0f * Camera.main.aspect;
 
         _gameLogic = FindObjectOfType<GameLogic>();
@@ -67,14 +67,14 @@ public class Character : MonoBehaviour
                     StartMagnet();
                     Destroy(collision.gameObject);
                     break;
-                case BoostType.WeaponRocket:
-                    StartWeapon(WeaponType.Rocket);
-                    Destroy(collision.gameObject);
-                    break;
-                case BoostType.WeaponLaser:
-                    StartWeapon(WeaponType.Laser);
-                    Destroy(collision.gameObject);
-                    break;
+                //case BoostType.WeaponRocket:
+                //    StartWeapon(WeaponType.Rocket);
+                //    Destroy(collision.gameObject);
+                //    break;
+                //case BoostType.WeaponLaser:
+                //    StartWeapon(WeaponType.Laser);
+                //    Destroy(collision.gameObject);
+                //    break;
                 case BoostType.Armor:
                     StartArmor();
                     Destroy(collision.gameObject);

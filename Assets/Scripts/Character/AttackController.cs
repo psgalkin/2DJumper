@@ -29,40 +29,47 @@ class AttackController : MonoBehaviour
 
     private void Update()
     {
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    Vector3 target = Input.mousePosition;
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        //    switch (_weaponType)
-        //    {
-        //        case WeaponType.Gun:
-        //            if (Time.time - _lastShootTime > _gunPeriod) {
-        //                StartGun(ref target);
-        //            }
-        //            _lastShootTime = Time.time;
-        //            break;
-        //        case WeaponType.Laser:
-        //            if (Time.time - _lastShootTime > _laserPeriod) {
-        //                StartLaser(ref target);
-        //            }
-        //            _lastShootTime = Time.time;
-        //            break;
-        //        case WeaponType.Rocket:
-        //            if (Time.time - _lastShootTime > _rocketPeriod) {
-        //                _lastShootTime = Time.time;
-        //            }
-        //            break;
-        //    }
-        //}
+            switch (_weaponType)
+            {
+                case WeaponType.Gun:
+                    //if (Time.time - _lastShootTime > _gunPeriod) {
+                        StartGun(ref target);
+                    //}
+                    _lastShootTime = Time.time;
+                    break;
+                case WeaponType.Laser:
+                    if (Time.time - _lastShootTime > _laserPeriod) {
+                        StartLaser(ref target);
+                    }
+                    _lastShootTime = Time.time;
+                    break;
+                case WeaponType.Rocket:
+                    if (Time.time - _lastShootTime > _rocketPeriod) {
+                        _lastShootTime = Time.time;
+                    }
+                    break;
+            }
+        }
     }
 
     private void StartGun(ref Vector3 target)
     {
+        Vector3 pos = new Vector3(transform.position.x, transform.position.y, target.z);
         GameObject projectile = _factory.GetProjectile(_weaponType);
 
         projectile.transform.position = transform.position;
-        projectile.transform.rotation = Quaternion.FromToRotation(transform.position, target);
-
+        
+        float angle = (target.x - pos.x > 0.0f) ?
+            (float)(Math.Atan((target.y - pos.y)/ (target.x - pos.x) ) * 180f / Math.PI) :
+            180f + (float)(Math.Atan((target.y - pos.y) / (target.x - pos.x)) * 180f / Math.PI);
+        Quaternion quat = Quaternion.Euler(0.0f, 0.0f, angle);
+   
+        projectile.transform.rotation *= quat;
+        
         projectile.GetComponent<Rigidbody2D>().velocity = (new Vector2(target.x - transform.position.x, target.y - transform.position.y)).normalized * _gunSpeed;
     }
 
