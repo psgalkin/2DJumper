@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 62df8307f75cee64ca003604df65bf27, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.990566, g: 0.94550693, b: 0.76161444, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 3300271609849347295}
   - component: {fileID: -4293738967894055386}
   m_Layer: 0
-  m_Name: Weapon
+  m_Name: WeaponLaser
   m_TagString: Boost
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

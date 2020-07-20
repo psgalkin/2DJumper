@@ -80,8 +80,8 @@
     <Compile Include="Assets\Scripts\Game\Elements\Explosion.cs" />
     <Compile Include="Assets\Scripts\Game\Elements\MovingPlatform.cs" />
     <Compile Include="Assets\Scripts\Game\Elements\Platform.cs" />
+    <Compile Include="Assets\Scripts\Game\Elements\PusherEnemy.cs" />
     <Compile Include="Assets\Scripts\Game\Elements\Rocket.cs" />
-    <Compile Include="Assets\Scripts\Game\Elements\StrikerEnemy.cs" />
     <Compile Include="Assets\Scripts\Game\GameLogic.cs" />
     <Compile Include="Assets\Scripts\LevelGenerator\LevelData.cs" />
     <Compile Include="Assets\Scripts\LevelGenerator\LevelDataStructs.cs" />

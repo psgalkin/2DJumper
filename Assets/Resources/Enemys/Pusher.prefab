@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 86453731695292272}
   - component: {fileID: 5710477636233484438}
   - component: {fileID: -3796817264305443033}
+  - component: {fileID: 6289173361437068718}
   m_Layer: 0
   m_Name: Pusher
   m_TagString: Enemy
@@ -175,3 +176,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 2
+--- !u!114 &6289173361437068718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8732887950903928414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fb35910a3f4caa4aa125722f518e267, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _type: 0

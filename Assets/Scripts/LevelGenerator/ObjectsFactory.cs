@@ -13,6 +13,7 @@ class ObjectsFactory
 
     private GameObject _barrierEnemy;
     private GameObject _pusherEnemy;
+    private GameObject _enemyHit;
 
     private GameObject _jetpackBoost;
     private GameObject _trampolineBoost;
@@ -127,6 +128,9 @@ class ObjectsFactory
             case EnemyType.Pusher:
                 enemy = GetPusherEnemy();
                 break;
+            case EnemyType.Hit:
+                enemy = GetEnemyHit();
+                break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
@@ -149,6 +153,15 @@ class ObjectsFactory
             _pusherEnemy = Resources.Load<GameObject>(AssetPath.Enemys[EnemyType.Pusher]);
         }
         return _pusherEnemy;
+    }
+
+    private GameObject GetEnemyHit()
+    {
+        if (!_enemyHit)
+        {
+            _enemyHit = Resources.Load<GameObject>(AssetPath.Enemys[EnemyType.Hit]);
+        }
+        return _enemyHit;
     }
 
     public GameObject GetBoost(BoostType type, Transform transform)
@@ -316,7 +329,6 @@ class ObjectsFactory
             case BorderType.EndLevel:
                 border = GetEndLevelBorder();
                 return UnityEngine.Object.Instantiate(border);
-                break;
             case BorderType.Side:
                 border = GetSideBorder();
                 break;

@@ -16,14 +16,14 @@ MonoBehaviour:
   PlatformIntervals:
   - IntervalStart: 0
     IntervalEnd: 25
-    MinDist: 0
-    MaxDist: 1
+    MinDist: 2
+    MaxDist: 2.5
     MovingPlatformSpeed: 0.5
     PlatformsRatio:
     - Type: 1
       Ratio: 1
-    - Type: 2
-      Ratio: 1
+    - Type: 1
+      Ratio: 10
   - IntervalStart: 25
     IntervalEnd: 50
     MinDist: 0.5
@@ -64,11 +64,11 @@ MonoBehaviour:
     IntervalEnd: 100
     Number: 15
   EnemyIntervals:
-  - IntervalStart: 40
-    IntervalEnd: 70
+  - IntervalStart: 15
+    IntervalEnd: 25
     TypesNumbersProbabilitys:
-    - EnemyType: 1
-      Number: 6
+    - EnemyType: 2
+      Number: 1
       StrikerAttackSpeed: 0
       Probability: 100
   - IntervalStart: 80
@@ -81,16 +81,7 @@ MonoBehaviour:
   BoostIntervals:
   - IntervalStart: 20
     IntervalEnd: 40
-    TypesNumbersProbabilitys:
-    - BoostType: 2
-      Number: 5
-      Probability: 70
-    - BoostType: 4
-      Number: 2
-      Probability: 60
-    - BoostType: 1
-      Number: 1
-      Probability: 100
+    TypesNumbersProbabilitys: []
   - IntervalStart: 60
     IntervalEnd: 90
     TypesNumbersProbabilitys:
@@ -102,10 +93,7 @@ MonoBehaviour:
       Probability: 100
   - IntervalStart: 0
     IntervalEnd: 15
-    TypesNumbersProbabilitys:
-    - BoostType: 1
-      Number: 1
-      Probability: 100
+    TypesNumbersProbabilitys: []
   - IntervalStart: 115
     IntervalEnd: 125
     TypesNumbersProbabilitys:

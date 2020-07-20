@@ -15,6 +15,10 @@ class UpperBorder : Border
         else if (collision.CompareTag(Tag.Enemy))
         {
             TargetManager.AddEnemyToTarget(collision.GetComponent<Enemy>());
+            if (collision.GetComponent<PusherEnemy>())
+            {
+                collision.GetComponent<PusherEnemy>().SetActive();
+            }
         }
     }
 }

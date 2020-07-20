@@ -16,6 +16,8 @@ class MovingController : MonoBehaviour
     private bool _isForceJump = false;
     private bool _isRandomJump = false;
     private bool _isFlying = false;
+    private float _jumpVelocityX = 0.0f;
+
 
     private float _forceCoef;
     private float _flyingSpeed;
@@ -78,11 +80,13 @@ class MovingController : MonoBehaviour
             if (_isForceJump)
             {
                 _rigidBody.AddForce(new Vector2(0, _jumpForce * _forceCoef), ForceMode2D.Force);
-                _isForceJump = false;
+                _isForceJump = false; 
             }
             else if (_isRandomJump)
             {
-                _rigidBody.AddForce((new Vector2(Random.Range(-0.7f, 0.7f), 1.0f)).normalized * _jumpForce, ForceMode2D.Force);
+                Vector2 forceVect = new Vector2(Random.Range(-7f, 7f), 1.0f).normalized * _jumpForce;
+                _rigidBody.AddForce(forceVect * 0.005f, ForceMode2D.Force);
+                _jumpVelocityX = forceVect.x;
                 _isRandomJump = false;
             }
             else
@@ -101,6 +105,13 @@ class MovingController : MonoBehaviour
     {
         float deltaX = Input.GetAxis("Horizontal") * _rotationSpeed * Time.deltaTime;
         Vector2 movement = new Vector2(deltaX, _rigidBody.velocity.y);
+        if (Mathf.Abs(_jumpVelocityX) > 0.15f)
+        {
+            Debug.Log(_jumpVelocityX);
+            movement = new Vector2(deltaX + _jumpVelocityX * 0.01f, _rigidBody.velocity.y);
+            _jumpVelocityX += (_jumpVelocityX > 0) ? -5f : 5f;
+        }
+        
         _rigidBody.velocity = movement;
     }
 

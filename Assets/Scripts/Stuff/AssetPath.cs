@@ -29,7 +29,8 @@ class AssetPath
         new Dictionary<EnemyType, string>
         {
             {EnemyType.Barrier, "Enemys/Barrier" },
-            {EnemyType.Pusher, "Enemys/Pusher" }
+            {EnemyType.Pusher, "Enemys/Pusher" },
+            {EnemyType.Hit, "Enemys/Hit" }
         };
 
     public static readonly Dictionary<WeaponType, string> Projectiles =

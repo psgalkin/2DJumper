@@ -11,7 +11,8 @@ public enum EnemyType
 {
     None = 0,
     Barrier = 1,
-    Pusher = 2
+    Pusher = 2,
+    Hit = 3
 }
 
 public enum BoostType
