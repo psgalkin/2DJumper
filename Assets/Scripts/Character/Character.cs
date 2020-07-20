@@ -23,6 +23,11 @@ public class Character : MonoBehaviour
 
     private float _lvlWidth;
 
+    private IEnumerator _armorCoroutine;
+    private IEnumerator _magnetCoroutine;
+    private IEnumerator _jetpackCoroutine;
+
+
     [SerializeField] private CharacterData _characterData;
 
     void Awake()
@@ -43,6 +48,11 @@ public class Character : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
         _ui = FindObjectOfType<InGameUi>();
         _visual = GetComponent<Visual>();
+
+
+        _armorCoroutine = ArmorLogic();
+        _magnetCoroutine = MagnetLogic();
+        _jetpackCoroutine = JetpackLogic();
     }
 
     public float GetCoinSpeed()
@@ -130,15 +140,25 @@ public class Character : MonoBehaviour
             _movingController.StopJump();
         }
     }
+
+
     private void StartTrampoline()
     {
         _movingController.ForceJump();
     }
 
+    //**********************************************************************************//
+
     private void StartJetpack()
     {
-        StopCoroutine(JetpackLogic());
-        StartCoroutine(JetpackLogic());
+        StopCoroutine(_jetpackCoroutine);
+
+        _ui.EndBoostStatus(BoostType.Jetpack);
+        _visual.StopJetpack();
+
+        _jetpackCoroutine = JetpackLogic();
+        StartCoroutine(_jetpackCoroutine);
+
     }
 
     private IEnumerator JetpackLogic()
@@ -146,22 +166,33 @@ public class Character : MonoBehaviour
         
         _movingController.StartFlying();
         _visual.StartJetpack();
-        
-        for (int i = _characterData.JetpackDuration; i > 0; --i)
+
+        _ui.StartBoostStatus(BoostType.Jetpack, _characterData.JetpackDuration);
+        yield return new WaitForSeconds(1.0f);
+
+        for (int i = _characterData.JetpackDuration - 1; i > 0; --i)
         {
-            _ui.BoostStatus($"Jetpack: {i}\n");
+            _ui.SetBoostStatus(BoostType.Jetpack, i);
             yield return new WaitForSeconds(1.0f);
         }
-        _ui.BoostStatus("");
+        _ui.EndBoostStatus(BoostType.Jetpack);
 
         _movingController.StopFlying();
         _visual.StopJetpack();
     }
 
+    //**********************************************************************************//
+
     private void StartMagnet()
     {
-        StopCoroutine(MagnetLogic());
-        StartCoroutine(MagnetLogic());
+        StopCoroutine(_magnetCoroutine);
+
+        _ui.EndBoostStatus(BoostType.Magnet);
+        _isMagnetWorking = false;
+        _visual.StopMagnet();
+
+        _magnetCoroutine = MagnetLogic();
+        StartCoroutine(_magnetCoroutine);
     }
 
     private IEnumerator MagnetLogic()
@@ -169,12 +200,15 @@ public class Character : MonoBehaviour
         _isMagnetWorking = true;
         _visual.StartMagnet();
 
-        for (int i = _characterData.MagnetDuration; i > 0; --i)
+        _ui.StartBoostStatus(BoostType.Magnet, _characterData.MagnetDuration);
+        yield return new WaitForSeconds(1.0f);
+
+        for (int i = _characterData.MagnetDuration - 1; i > 0; --i)
         {
-            _ui.BoostStatus($"Magnet: {i}\n");
+            _ui.StartBoostStatus(BoostType.Magnet, i);
             yield return new WaitForSeconds(1.0f);
         }
-        _ui.BoostStatus("");
+        _ui.EndBoostStatus(BoostType.Magnet);
 
         _isMagnetWorking = false;
         _visual.StopMagnet();
@@ -182,44 +216,65 @@ public class Character : MonoBehaviour
 
     public bool IsMagnetWorking() { return _isMagnetWorking; }
 
+    //**********************************************************************************//
+
     private void StartWeapon(WeaponType type)
     {
         _attackController.SetWeapon(type);
+        StartCoroutine(WeaponLogic(type));
     }
 
-    private IEnumerator WeaponLogic()
+    private IEnumerator WeaponLogic(WeaponType type)
     {
-        _ui.BoostStatus("Weapon Taken\n");
+        BoostType boostType = (type == WeaponType.Laser) ? BoostType.WeaponLaser : BoostType.WeaponRocket;
+        _ui.StartBoostStatus(boostType, 0);
         yield return new WaitForSeconds(1.0f);
-        _ui.BoostStatus("");
+        _ui.EndBoostStatus(boostType);
     }
+
+    //**********************************************************************************//
 
     private void StartArmor()
     {
-        StopCoroutine(ArmorLogic());
-        StartCoroutine(ArmorLogic());
+        StopCoroutine(_armorCoroutine);
+
+        _ui.EndBoostStatus(BoostType.Armor);
+        _isHasArmor = false;
+        _visual.StopArmor();
+
+        _armorCoroutine = ArmorLogic();
+        StartCoroutine(_armorCoroutine);
     }
 
     private void StopArmor()
     {
-        StopCoroutine(ArmorLogic());
+        StopCoroutine(_armorCoroutine);
 
-        _ui.BoostStatus("");
+        _ui.EndBoostStatus(BoostType.Armor);
         _isHasArmor = false;
+        _visual.StopArmor();
     }
 
     private IEnumerator ArmorLogic()
     {
         _isHasArmor = true;
-        for (int i = _characterData.ArmorDuration; i > 0; --i)
+        _visual.StartArmor();
+
+        _ui.StartBoostStatus(BoostType.Armor, _characterData.ArmorDuration);
+        yield return new WaitForSeconds(1.0f);
+
+        for (int i = _characterData.ArmorDuration - 1; i > 0; --i)
         {
             if (!_isHasArmor) { break; }
-            _ui.BoostStatus($"Armor: {i}\n");
+            _ui.SetBoostStatus(BoostType.Armor, i);
             yield return new WaitForSeconds(1.0f);
         }
-        _ui.BoostStatus("");
+        _ui.EndBoostStatus(BoostType.Armor);
         _isHasArmor = false;
+        _visual.StopArmor();
     }
+
+    //**********************************************************************************//
 
     private void StartCoin()
     {
@@ -227,6 +282,8 @@ public class Character : MonoBehaviour
         _ui.SetCoinCount(_coinCount); 
     }
     
+
+
     void Update()
     {
         SetCameraHeight();
