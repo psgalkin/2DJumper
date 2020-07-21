@@ -151,6 +151,7 @@ public class Character : MonoBehaviour
 
     private void StartJetpack()
     {
+        
         StopCoroutine(_jetpackCoroutine);
 
         _ui.EndBoostStatus(BoostType.Jetpack);

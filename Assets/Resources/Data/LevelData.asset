@@ -67,8 +67,8 @@ MonoBehaviour:
   - IntervalStart: 15
     IntervalEnd: 25
     TypesNumbersProbabilitys:
-    - EnemyType: 2
-      Number: 1
+    - EnemyType: 1
+      Number: 0
       StrikerAttackSpeed: 0
       Probability: 100
   - IntervalStart: 80
@@ -92,8 +92,14 @@ MonoBehaviour:
       Number: 2
       Probability: 100
   - IntervalStart: 0
-    IntervalEnd: 15
-    TypesNumbersProbabilitys: []
+    IntervalEnd: 20
+    TypesNumbersProbabilitys:
+    - BoostType: 4
+      Number: 4
+      Probability: 100
+    - BoostType: 5
+      Number: 4
+      Probability: 100
   - IntervalStart: 115
     IntervalEnd: 125
     TypesNumbersProbabilitys:

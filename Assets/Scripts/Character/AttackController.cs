@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System;
 using System.Collections;
 
-class AttackController : MonoBehaviour
+class AttackController : MonoBehaviour//, IPointerClickHandler
 {
     private WeaponType _weaponType = WeaponType.Rocket;
     private ObjectsFactory _factory = new ObjectsFactory();
@@ -29,7 +30,8 @@ class AttackController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) &&
+            !EventSystem.current.IsPointerOverGameObject())
         {
             Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -38,19 +40,19 @@ class AttackController : MonoBehaviour
             {
                 case WeaponType.Gun:
                     //if (Time.time - _lastShootTime > _gunPeriod) {
-                        StartGun(ref target);
+                    StartGun(ref target);
                     //}
                     _lastShootTime = Time.time;
                     break;
                 case WeaponType.Laser:
                     //if (Time.time - _lastShootTime > _laserPeriod) {
-                        StartLaser(ref target);
+                    StartLaser(ref target);
                     //}
                     _lastShootTime = Time.time;
                     break;
                 case WeaponType.Rocket:
                     //if (Time.time - _lastShootTime > _rocketPeriod) {
-                        StartRocket(ref target);    
+                    StartRocket(ref target);
                     //}
                     _lastShootTime = Time.time;
                     break;
@@ -159,4 +161,32 @@ class AttackController : MonoBehaviour
         projectile.GetComponent<Rigidbody2D>().velocity = (new Vector2(target.x - transform.position.x, target.y - transform.position.y)).normalized * _gunSpeed;
 
     }
+
+    //public void OnPointerClick(PointerEventData eventData)
+    //{
+    //    Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+    //    // TODO Add periods
+    //    switch (_weaponType)
+    //    {
+    //        case WeaponType.Gun:
+    //            //if (Time.time - _lastShootTime > _gunPeriod) {
+    //            StartGun(ref target);
+    //            //}
+    //            _lastShootTime = Time.time;
+    //            break;
+    //        case WeaponType.Laser:
+    //            //if (Time.time - _lastShootTime > _laserPeriod) {
+    //            StartLaser(ref target);
+    //            //}
+    //            _lastShootTime = Time.time;
+    //            break;
+    //        case WeaponType.Rocket:
+    //            //if (Time.time - _lastShootTime > _rocketPeriod) {
+    //            StartRocket(ref target);
+    //            //}
+    //            _lastShootTime = Time.time;
+    //            break;
+    //    }
+    //}
 }

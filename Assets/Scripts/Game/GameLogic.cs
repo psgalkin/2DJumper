@@ -4,22 +4,24 @@ using UnityEngine;
 
 public class GameLogic : MonoBehaviour
 {
-    [SerializeField] private InGameUi _ui;
+    private InGameUi _ui;
 
-    //private void Start()
-    //{
-    //    _ui = FindObjectOfType<InGameUi>();
-    //}
+    private void Start()
+    {
+        _ui = FindObjectOfType<InGameUi>();
+    }
+
+
 
     public void Win()
     {
-        _ui.SetWinText();
+        _ui.Win();
         Time.timeScale = 0;
     }
 
     public void Loss()
     {
-        _ui.SetLossText();
+        _ui.Loss();
         Time.timeScale = 0;
     }
 }
