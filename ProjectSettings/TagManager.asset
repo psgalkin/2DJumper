@@ -10,6 +10,7 @@ TagManager:
   - Platform
   - Projectile
   - Border
+  - Ui
   layers:
   - Default
   - TransparentFX

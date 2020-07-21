@@ -2,8 +2,9 @@
 using UnityEngine.EventSystems;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
-class AttackController : MonoBehaviour//, IPointerClickHandler
+class AttackController : MonoBehaviour
 {
     private WeaponType _weaponType = WeaponType.Rocket;
     private ObjectsFactory _factory = new ObjectsFactory();
@@ -15,12 +16,15 @@ class AttackController : MonoBehaviour//, IPointerClickHandler
     [SerializeField] private float _rocketSpeed;
     [SerializeField] private float _rocketPeriod;
 
+    private Camera _camera;
+
     private float _lastShootTime;
     private float _rayDistance;
 
     private void Start()
     {
         _rayDistance = (float)Math.Sqrt(1.0d + Camera.main.aspect) * Camera.main.orthographicSize * 2.0f;
+        _camera = Camera.main;
     }
 
     public void SetWeapon(WeaponType type)
@@ -28,13 +32,35 @@ class AttackController : MonoBehaviour//, IPointerClickHandler
         _weaponType = type;
     }
 
+
+    private bool IsPointerOverUiObject()
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+
+        for (int i = 0; i < results.Count; i++)
+        {
+            if (results[i].gameObject.layer == 5) //5 = UI layer
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) &&
-            !EventSystem.current.IsPointerOverGameObject())
+        if (Input.GetMouseButtonDown(0))            
         {
             Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
+           
+            if (IsPointerOverUiObject()) { return; } 
+                
+                
             // TODO Add periods
             switch (_weaponType)
             {
@@ -161,32 +187,4 @@ class AttackController : MonoBehaviour//, IPointerClickHandler
         projectile.GetComponent<Rigidbody2D>().velocity = (new Vector2(target.x - transform.position.x, target.y - transform.position.y)).normalized * _gunSpeed;
 
     }
-
-    //public void OnPointerClick(PointerEventData eventData)
-    //{
-    //    Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-    //    // TODO Add periods
-    //    switch (_weaponType)
-    //    {
-    //        case WeaponType.Gun:
-    //            //if (Time.time - _lastShootTime > _gunPeriod) {
-    //            StartGun(ref target);
-    //            //}
-    //            _lastShootTime = Time.time;
-    //            break;
-    //        case WeaponType.Laser:
-    //            //if (Time.time - _lastShootTime > _laserPeriod) {
-    //            StartLaser(ref target);
-    //            //}
-    //            _lastShootTime = Time.time;
-    //            break;
-    //        case WeaponType.Rocket:
-    //            //if (Time.time - _lastShootTime > _rocketPeriod) {
-    //            StartRocket(ref target);
-    //            //}
-    //            _lastShootTime = Time.time;
-    //            break;
-    //    }
-    //}
 }
