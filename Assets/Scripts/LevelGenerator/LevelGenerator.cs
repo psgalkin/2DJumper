@@ -11,7 +11,7 @@ using Random = UnityEngine.Random;
 
 public class LevelGenerator : MonoBehaviour
 {
-    [SerializeField] private LevelData _data;
+    private LevelData _data;
 
     private ObjectsFactory _factory;
 
@@ -27,6 +27,8 @@ public class LevelGenerator : MonoBehaviour
 
     private void Start()
     {
+        _data = LevelLoader.Data;
+
         _factory = new ObjectsFactory();
         _platformSize = _factory.PlatformSize();
 
@@ -35,8 +37,7 @@ public class LevelGenerator : MonoBehaviour
         _lvlHeight = _camera.orthographicSize * 2.0f;
 
         _camera.transform.position = new Vector3(_lvlWidth / 2, _lvlHeight / 2, _camera.transform.position.z);
-        //Debug.Log($"LWLWIDTH: {_lvlWidth}, ORT SIZE: {camera.orthographicSize * 2.0f}, ASPECT: {camera.aspect}");
-
+        
         Generate();
     }
 

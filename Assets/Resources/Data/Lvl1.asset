@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb190c6887d47044db60381c416ebc48, type: 3}
+  m_Name: Lvl1
+  m_EditorClassIdentifier: 
+  LevelHeight: 0
+  PlatformIntervals:
+  - IntervalStart: 0
+    IntervalEnd: 40
+    MinDist: 1.5
+    MaxDist: 2
+    MovingPlatformSpeed: 0
+    PlatformsRatio:
+    - Type: 1
+      Ratio: 5
+    - Type: 2
+      Ratio: 1
+  - IntervalStart: 40
+    IntervalEnd: 80
+    MinDist: 1.7
+    MaxDist: 2.2
+    MovingPlatformSpeed: 0
+    PlatformsRatio:
+    - Type: 1
+      Ratio: 2
+    - Type: 2
+      Ratio: 1
+  - IntervalStart: 80
+    IntervalEnd: 125
+    MinDist: 2
+    MaxDist: 2.5
+    MovingPlatformSpeed: 0
+    PlatformsRatio:
+    - Type: 1
+      Ratio: 2
+    - Type: 2
+      Ratio: 1
+  CoinIntervals:
+  - IntervalStart: 40
+    IntervalEnd: 80
+    Number: 20
+  - IntervalStart: 80
+    IntervalEnd: 120
+    Number: 30
+  EnemyIntervals: []
+  BoostIntervals:
+  - IntervalStart: 0
+    IntervalEnd: 20
+    TypesNumbersProbabilitys: []
+  - IntervalStart: 20
+    IntervalEnd: 40
+    TypesNumbersProbabilitys:
+    - BoostType: 2
+      Number: 1
+      Probability: 100
+  - IntervalStart: 40
+    IntervalEnd: 60
+    TypesNumbersProbabilitys:
+    - BoostType: 2
+      Number: 3
+      Probability: 100
+    - BoostType: 1
+      Number: 1
+      Probability: 50
+  - IntervalStart: 60
+    IntervalEnd: 80
+    TypesNumbersProbabilitys:
+    - BoostType: 3
+      Number: 2
+      Probability: 100
+    - BoostType: 1
+      Number: 2
+      Probability: 50
+    - BoostType: 2
+      Number: 2
+      Probability: 50
+  - IntervalStart: 80
+    IntervalEnd: 100
+    TypesNumbersProbabilitys:
+    - BoostType: 2
+      Number: 5
+      Probability: 100
+  - IntervalStart: 100
+    IntervalEnd: 120
+    TypesNumbersProbabilitys:
+    - BoostType: 3
+      Number: 1
+      Probability: 100
+    - BoostType: 2
+      Number: 4
+      Probability: 75

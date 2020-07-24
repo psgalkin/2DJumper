@@ -9,6 +9,7 @@ public class GameLogic : MonoBehaviour
     private void Start()
     {
         _ui = FindObjectOfType<InGameUi>();
+        Time.timeScale = 1.0f;
     }
 
 

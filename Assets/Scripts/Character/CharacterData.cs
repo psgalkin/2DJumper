@@ -9,4 +9,6 @@ public class CharacterData : ScriptableObject
     public int MagnetDuration;
     public float CoinSpeed;
     public int ArmorDuration;
+
+    public int CoinCount;
 }
