@@ -11,6 +11,7 @@ public class InGameUi : MonoBehaviour
 
     [SerializeField] private GameObject _pauseUi;
     [SerializeField] private GameObject _endGameUi;
+    [SerializeField] private TMP_Text _emdGameCoins;
 
 
     //private SceneManager _sceneManager;
@@ -25,6 +26,13 @@ public class InGameUi : MonoBehaviour
     private void Start()
     {
         _statusArea = GetComponent<StatusArea>();
+
+        _winText.gameObject.SetActive(false);
+        _lossText.gameObject.SetActive(false);
+        _emdGameCoins.gameObject.SetActive(false);
+
+        _pauseUi.SetActive(false);
+        _endGameUi.SetActive(false);
     }
 
     public void StartBoostStatus(BoostType type, int time)
@@ -68,6 +76,7 @@ public class InGameUi : MonoBehaviour
     public void Win()
     {
         _endGameUi.SetActive(true);
+        _emdGameCoins.gameObject.SetActive(true);
         _winText.gameObject.SetActive(true);
     }
 
@@ -75,5 +84,10 @@ public class InGameUi : MonoBehaviour
     {
         _endGameUi.SetActive(true);
         _lossText.gameObject.SetActive(true);
+    }
+
+    public void EndGameCoins(int count)
+    {
+        _emdGameCoins.text = $"Coins earned: {count}";
     }
 }

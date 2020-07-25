@@ -109,7 +109,7 @@ public class Character : MonoBehaviour
                     _gameLogic.Loss();
                     break;
                 case BorderType.EndLevel:
-                    _gameLogic.Win();
+                    _gameLogic.Win(_coinCount);
                     break;
             }
         }

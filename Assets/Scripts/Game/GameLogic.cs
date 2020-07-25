@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameLogic : MonoBehaviour
 {
     private InGameUi _ui;
+    [SerializeField] private CharacterData _data;
+
 
     private void Start()
     {
@@ -12,11 +14,11 @@ public class GameLogic : MonoBehaviour
         Time.timeScale = 1.0f;
     }
 
-
-
-    public void Win()
+    public void Win(int coinsEarned)
     {
         _ui.Win();
+        _ui.EndGameCoins(coinsEarned);
+        _data.CoinCount += coinsEarned;
         Time.timeScale = 0;
     }
 

@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efafb8665be40c045b32d751043635c7, type: 3}
   m_Name: CharacterData
   m_EditorClassIdentifier: 
-  ForceJumpCoef: 1.5
-  JetpackDuration: 4
+  ForceJumpCoef: 1.4
+  JetpackDuration: 3
   FlyingSpeed: 8
   MagnetDuration: 3
   CoinSpeed: 10
-  ArmorDuration: 10
+  ArmorDuration: 3
+  CoinCount: 0
