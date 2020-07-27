@@ -22,7 +22,7 @@ MonoBehaviour:
     PlatformsRatio:
     - Type: 1
       Ratio: 1
-    - Type: 1
+    - Type: 2
       Ratio: 10
   - IntervalStart: 25
     IntervalEnd: 50
@@ -79,20 +79,17 @@ MonoBehaviour:
       StrikerAttackSpeed: 0
       Probability: 100
   BoostIntervals:
-  - IntervalStart: 20
-    IntervalEnd: 40
-    TypesNumbersProbabilitys: []
-  - IntervalStart: 60
-    IntervalEnd: 90
-    TypesNumbersProbabilitys:
-    - BoostType: 1
-      Number: 3
-      Probability: 75
-    - BoostType: 3
-      Number: 2
-      Probability: 100
   - IntervalStart: 0
     IntervalEnd: 20
+    TypesNumbersProbabilitys:
+    - BoostType: 2
+      Number: 5
+      Probability: 100
+  - IntervalStart: 60
+    IntervalEnd: 90
+    TypesNumbersProbabilitys: []
+  - IntervalStart: 20
+    IntervalEnd: 40
     TypesNumbersProbabilitys:
     - BoostType: 4
       Number: 4

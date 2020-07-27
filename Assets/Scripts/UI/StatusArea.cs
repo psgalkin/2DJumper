@@ -84,7 +84,7 @@ public class StatusArea : MonoBehaviour
     public void RemoveField(BoostType boostType)
     {
         bool isRemoved = false;
-        int removeNum = -1;
+ 
         for ( int i = 0; i < _data.Count; ++i)
         {
             if (isRemoved) 

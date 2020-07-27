@@ -54,6 +54,7 @@ class AttackController : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(Time.time - _lastShootTime);
         if (Input.GetMouseButtonDown(0))            
         {
             Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -61,26 +62,28 @@ class AttackController : MonoBehaviour
             if (IsPointerOverUiObject()) { return; } 
                 
                 
-            // TODO Add periods
             switch (_weaponType)
             {
                 case WeaponType.Gun:
-                    //if (Time.time - _lastShootTime > _gunPeriod) {
-                    StartGun(ref target);
-                    //}
-                    _lastShootTime = Time.time;
+                    if (Time.time - _lastShootTime > _gunPeriod) {
+                        StartGun(ref target);
+                        _lastShootTime = Time.time;
+                    }
+                    
                     break;
                 case WeaponType.Laser:
-                    //if (Time.time - _lastShootTime > _laserPeriod) {
-                    StartLaser(ref target);
-                    //}
-                    _lastShootTime = Time.time;
+                    if (Time.time - _lastShootTime > _laserPeriod) {
+                        StartLaser(ref target);
+                        _lastShootTime = Time.time;
+                    }
+                    
                     break;
                 case WeaponType.Rocket:
-                    //if (Time.time - _lastShootTime > _rocketPeriod) {
-                    StartRocket(ref target);
-                    //}
-                    _lastShootTime = Time.time;
+                    if (Time.time - _lastShootTime > _rocketPeriod) {
+                        StartRocket(ref target);
+                        _lastShootTime = Time.time;
+                    }
+                    
                     break;
             }
         }

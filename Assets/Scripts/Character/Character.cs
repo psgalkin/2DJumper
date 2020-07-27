@@ -123,7 +123,17 @@ public class Character : MonoBehaviour
             switch (collision.gameObject.GetComponent<Platform>().GetType())
             {
                 case PlatformType.Brokening:
+                    bool triggerJump = false;
+                    if (collision.gameObject.GetComponentInChildren<Boost>() != null &&
+                        collision.gameObject.GetComponentInChildren<Boost>().GetType() == BoostType.Trampoline)
+                    {
+                        triggerJump = true;
+                    }
                     Destroy(collision.gameObject);
+                    if (triggerJump)
+                    {
+                        _movingController.ForceJump();
+                    }
                     break;
                 case PlatformType.Trap:
                     _movingController.RandomJump();
