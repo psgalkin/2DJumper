@@ -91,6 +91,8 @@
     <Compile Include="Assets\Scripts\Stuff\AssetPath.cs" />
     <Compile Include="Assets\Scripts\Stuff\ElementTypes.cs" />
     <Compile Include="Assets\Scripts\Stuff\LevelLoader.cs" />
+    <Compile Include="Assets\Scripts\Stuff\SIngleton.cs" />
+    <Compile Include="Assets\Scripts\Stuff\Sounds.cs" />
     <Compile Include="Assets\Scripts\Stuff\Tag.cs" />
     <Compile Include="Assets\Scripts\Stuff\UpBoostData.cs" />
     <Compile Include="Assets\Scripts\UI\BoostUi.cs" />

@@ -277,7 +277,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 919480230536039149}
-  - {fileID: 1582794483438472489}
+  - {fileID: 3908927079846132146}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -474,6 +474,49 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &4972377881528442378
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3908927079846132146}
+  - component: {fileID: 46208582916908532}
+  m_Layer: 0
+  m_Name: Sounds
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3908927079846132146
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4972377881528442378}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8243745470351471602}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &46208582916908532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4972377881528442378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db119c72acea1454faf75aa36af10673, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8152219561359679896
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,6 +551,7 @@ Transform:
   - {fileID: 1655155682044809966}
   - {fileID: 2746051445882177538}
   - {fileID: 5096546458624652536}
+  - {fileID: 1582794483438472489}
   m_Father: {fileID: 8243745470351471602}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -666,7 +710,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 8243745470351471602}
+    m_TransformParent: {fileID: 919480230536039149}
     m_Modifications:
     - target: {fileID: 2404029924536854366, guid: 474bc79c87a60324fbc20865516fb2ef,
         type: 3}
@@ -716,7 +760,7 @@ PrefabInstance:
     - target: {fileID: 2510822589540859110, guid: 474bc79c87a60324fbc20865516fb2ef,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2510822589540859110, guid: 474bc79c87a60324fbc20865516fb2ef,
         type: 3}
