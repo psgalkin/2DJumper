@@ -26,6 +26,8 @@ class AssetPath
         public static readonly string BarrierEnemy = "Sound/Enemy/Barrier";
         public static readonly string PusherEnemy = "Sound/Enemy/Pusher";
         public static readonly string EnemyHit = "Sound/Enemy/Hit";
+
+        public static readonly string Coin = "Sound/Coin";
     }
 
     public static readonly Dictionary<PlatformType, string> Platforms =

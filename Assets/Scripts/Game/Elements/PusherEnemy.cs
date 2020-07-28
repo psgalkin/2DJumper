@@ -54,6 +54,7 @@ class PusherEnemy : Enemy
     private void Hit(Vector3 target)
     {
         GameObject enemyProjectile = _factory.GetEnemy(EnemyType.Hit);
+        Sounds.Instance.StartEnemySound(EnemyType.Hit);
         enemyProjectile.transform.position = transform.position;
 
         float angle = (target.x - transform.position.x > 0.0f) ?

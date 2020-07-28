@@ -161,9 +161,9 @@ public class Character : MonoBehaviour
 
     private void StartJetpack()
     {
-        
         StopCoroutine(_jetpackCoroutine);
-
+     
+        Sounds.Instance.StartBoostSound(BoostType.Jetpack);
         _ui.EndBoostStatus(BoostType.Jetpack);
         _visual.StopJetpack();
 
@@ -189,6 +189,7 @@ public class Character : MonoBehaviour
         _ui.EndBoostStatus(BoostType.Jetpack);
 
         _movingController.StopFlying();
+        Sounds.Instance.StopBoostSound(BoostType.Jetpack);
         _visual.StopJetpack();
     }
 
@@ -197,6 +198,7 @@ public class Character : MonoBehaviour
     private void StartMagnet()
     {
         StopCoroutine(_magnetCoroutine);
+        Sounds.Instance.StartBoostSound(BoostType.Magnet);
 
         _ui.EndBoostStatus(BoostType.Magnet);
         _isMagnetWorking = false;
@@ -222,6 +224,7 @@ public class Character : MonoBehaviour
         _ui.EndBoostStatus(BoostType.Magnet);
 
         _isMagnetWorking = false;
+        Sounds.Instance.StopBoostSound(BoostType.Magnet);
         _visual.StopMagnet();
     }
 
@@ -231,6 +234,7 @@ public class Character : MonoBehaviour
 
     private void StartWeapon(WeaponType type)
     {
+        Sounds.Instance.StartBoostSound(BoostType.WeaponLaser);
         _attackController.SetWeapon(type);
         StartCoroutine(WeaponLogic(type));
     }
@@ -248,7 +252,8 @@ public class Character : MonoBehaviour
     private void StartArmor()
     {
         StopCoroutine(_armorCoroutine);
-
+        Sounds.Instance.StartBoostSound(BoostType.Armor);
+        
         _ui.EndBoostStatus(BoostType.Armor);
         _isHasArmor = false;
         _visual.StopArmor();
@@ -263,6 +268,7 @@ public class Character : MonoBehaviour
 
         _ui.EndBoostStatus(BoostType.Armor);
         _isHasArmor = false;
+        Sounds.Instance.StopBoostSound(BoostType.Armor);
         _visual.StopArmor();
     }
 
@@ -281,6 +287,7 @@ public class Character : MonoBehaviour
             yield return new WaitForSeconds(1.0f);
         }
         _ui.EndBoostStatus(BoostType.Armor);
+        Sounds.Instance.StopBoostSound(BoostType.Armor);
         _isHasArmor = false;
         _visual.StopArmor();
     }
@@ -290,6 +297,7 @@ public class Character : MonoBehaviour
     private void StartCoin()
     {
         ++_coinCount;
+        Sounds.Instance.StartCoinSound();
         _ui.SetCoinCount(_coinCount); 
     }
     

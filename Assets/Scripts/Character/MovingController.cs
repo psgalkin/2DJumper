@@ -18,6 +18,7 @@ class MovingController : MonoBehaviour
     private bool _isFlying = false;
     private float _jumpVelocityX = 0.0f;
 
+    private PlatformType _currentPlatform;
 
     private float _forceCoef;
     private float _flyingSpeed;
@@ -73,17 +74,35 @@ class MovingController : MonoBehaviour
         _isFlying = false;
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag(Tag.Platform))
+        {
+            _currentPlatform = collision.GetComponent<Platform>().GetType();
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag(Tag.Platform))
+        {
+            _currentPlatform = collision.gameObject.GetComponent<Platform>().GetType();
+        }
+    }
+
     public void Jump()
     {
         if (CanJump())
         {
             if (_isForceJump)
             {
+                Sounds.Instance.StartBoostSound(BoostType.Trampoline);
                 _rigidBody.AddForce(new Vector2(0, _jumpForce * _forceCoef), ForceMode2D.Force);
                 _isForceJump = false; 
             }
             else if (_isRandomJump)
             {
+                Sounds.Instance.StartJumpSound(PlatformType.Trap);
                 Vector2 forceVect = new Vector2(Random.Range(-7f, 7f), 1.0f).normalized * _jumpForce;
                 _rigidBody.AddForce(forceVect * 0.005f, ForceMode2D.Force);
                 _jumpVelocityX = forceVect.x;
@@ -93,6 +112,7 @@ class MovingController : MonoBehaviour
             {
                 _rigidBody.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Force);
             }
+            Sounds.Instance.StartJumpSound(_currentPlatform);
         }
     }
 

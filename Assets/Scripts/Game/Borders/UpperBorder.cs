@@ -18,6 +18,10 @@ class UpperBorder : Border
             if (collision.GetComponent<PusherEnemy>())
             {
                 collision.GetComponent<PusherEnemy>().SetActive();
+                Sounds.Instance.StartEnemySound(EnemyType.Pusher);
+            }
+            else {
+                Sounds.Instance.StartEnemySound(EnemyType.Barrier);
             }
         }
     }

@@ -66,6 +66,7 @@ class AttackController : MonoBehaviour
             {
                 case WeaponType.Gun:
                     if (Time.time - _lastShootTime > _gunPeriod) {
+                        Sounds.Instance.StartAttackSound(WeaponType.Gun);
                         StartGun(ref target);
                         _lastShootTime = Time.time;
                     }
@@ -73,12 +74,14 @@ class AttackController : MonoBehaviour
                     break;
                 case WeaponType.Laser:
                     if (Time.time - _lastShootTime > _laserPeriod) {
+                        Sounds.Instance.StartAttackSound(WeaponType.Laser);
                         StartLaser(ref target);
                         _lastShootTime = Time.time;
                     }
                     
                     break;
                 case WeaponType.Rocket:
+                    Sounds.Instance.StartAttackSound(WeaponType.Rocket);
                     if (Time.time - _lastShootTime > _rocketPeriod) {
                         StartRocket(ref target);
                         _lastShootTime = Time.time;

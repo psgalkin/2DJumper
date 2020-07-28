@@ -25,9 +25,18 @@ public class Sounds : SingletonMonoBehaviour<Sounds>
     private AudioClip _pusherEnemySound;
     private AudioClip _enemyHitSound;
 
+    private AudioClip _coinSound;
 
     private void Start()
     {
+        for (int i = 0; i < 10; ++i)
+        {
+            AudioSource audioSource = Resources.Load<AudioSource>(AssetPath.AudioSourcePrefab);
+            AudioSource newSource = Instantiate<AudioSource>(audioSource, transform);
+            newSource.transform.position = transform.position;
+            _sources.Add(newSource);
+        }
+
         _jumpSound = Resources.Load<AudioClip>(AssetPath.Sounds.SimpleJump);
         _brokeningSound = Resources.Load<AudioClip>(AssetPath.Sounds.BrokeningJump);
         _trapSound = Resources.Load<AudioClip>(AssetPath.Sounds.TrapJump);
@@ -47,6 +56,27 @@ public class Sounds : SingletonMonoBehaviour<Sounds>
         _barrierEnemySound = Resources.Load<AudioClip>(AssetPath.Sounds.BarrierEnemy);
         _pusherEnemySound = Resources.Load<AudioClip>(AssetPath.Sounds.PusherEnemy);
         _enemyHitSound = Resources.Load<AudioClip>(AssetPath.Sounds.EnemyHit);
+
+        _coinSound = Resources.Load<AudioClip>(AssetPath.Sounds.Coin);
+    }
+
+    public void StartJumpSound(PlatformType type)
+    {
+        switch (type)
+        {
+            case PlatformType.Simple:
+                Play(_jumpSound);
+                break;
+            case PlatformType.Brokening:
+                Play(_brokeningSound);
+                break;
+            case PlatformType.Moving:
+                Play(_movingSound);
+                break;
+            case PlatformType.Trap:
+                Play(_trapSound);
+                break;
+        }
     }
     public void StartBoostSound(BoostType type)
     {
@@ -56,10 +86,10 @@ public class Sounds : SingletonMonoBehaviour<Sounds>
                 Play(_trampolineBoostSound);
                 break;
             case BoostType.Jetpack:
-                Play(_jetpackBoostSound);
+                Play(_jetpackBoostSound, true);
                 break;
             case BoostType.Magnet:
-                Play(_magnetBoostSound);
+                Play(_magnetBoostSound, true);
                 break;
             case BoostType.WeaponLaser:
                 Play(_weaponBoostSound);
@@ -68,7 +98,7 @@ public class Sounds : SingletonMonoBehaviour<Sounds>
                 Play(_weaponBoostSound);
                 break;
             case BoostType.Armor:
-                Play(_armorBoostSound);
+                Play(_armorBoostSound, true);
                 break;
         }
     }
@@ -93,7 +123,7 @@ public class Sounds : SingletonMonoBehaviour<Sounds>
     }
 
     
-    public void AttackSound(WeaponType type)
+    public void StartAttackSound(WeaponType type)
     {
         switch (type)
         {
@@ -119,10 +149,10 @@ public class Sounds : SingletonMonoBehaviour<Sounds>
         switch (type)
         {
             case EnemyType.Barrier:
-                Play(_barrierEnemySound);
+                Play(_barrierEnemySound, true);
                 break;
             case EnemyType.Pusher:
-                Play(_pusherEnemySound);
+                Play(_pusherEnemySound, true);
                 break;
             case EnemyType.Hit:
                 Play(_enemyHitSound);
@@ -147,48 +177,45 @@ public class Sounds : SingletonMonoBehaviour<Sounds>
         }
     }
 
+    public void StartCoinSound()
+    {
+        Play(_coinSound);
+    }
 
-
-    public void Stop(AudioClip clip)
+    private void Stop(AudioClip clip)
     {
         foreach (AudioSource source in _sources)
         {
             if (source.clip == clip)
             {
+                source.loop = false;
                 source.Stop();
             }
         }
     }
-    private void Play(AudioClip clip)
+    private void Play(AudioClip clip, bool isLooping = false)
     {
-        CheckEmpty();
-        if(RestartPlayingClip(clip)) { return; }
-
-        AudioSource audioSource = Resources.Load<AudioSource>(AssetPath.AudioSourcePrefab);
-
-        audioSource.transform.position = transform.position;
-        audioSource.clip = clip;
-        audioSource.Play();
-
-        _sources.Add(audioSource);
-    }
-    
-    private void CheckEmpty()
-    {
-        for (int i = _sources.Count - 1; i >= 0; --i)
+        if (RestartPlayingClip(clip)) { return; } 
+        foreach (AudioSource source in _sources)
         {
-            if (!_sources[i].isPlaying)
+            if (!source.isPlaying)
             {
-                _sources.RemoveAt(i);
-                continue;
+                source.clip = clip;
+                source.Play();
+                if (isLooping) { source.loop = true; }
+                return;
             }
         }
+        Debug.Log("Too much sounds");
     }
+    
+
     private bool RestartPlayingClip(AudioClip clip)
     {
         foreach(AudioSource source in _sources)
         {
-            if (source.clip == clip)
+            if (source.clip == clip &&
+                source.isPlaying)
             {
                 source.Stop();
                 source.Play();

@@ -39,7 +39,7 @@ MonoBehaviour:
   - IntervalStart: 50
     IntervalEnd: 75
     MinDist: 2
-    MaxDist: 3
+    MaxDist: 2.6
     MovingPlatformSpeed: 2
     PlatformsRatio:
     - Type: 3
@@ -51,7 +51,7 @@ MonoBehaviour:
   - IntervalStart: 75
     IntervalEnd: 140
     MinDist: 2.5
-    MaxDist: 3.5
+    MaxDist: 2.9
     MovingPlatformSpeed: 3
     PlatformsRatio:
     - Type: 3
@@ -79,7 +79,7 @@ MonoBehaviour:
       StrikerAttackSpeed: 0
       Probability: 100
   BoostIntervals:
-  - IntervalStart: 0
+  - IntervalStart: 10
     IntervalEnd: 20
     TypesNumbersProbabilitys:
     - BoostType: 2

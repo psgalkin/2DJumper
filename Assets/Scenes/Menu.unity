@@ -361,6 +361,7 @@ MonoBehaviour:
   _levelData:
   - {fileID: 11400000, guid: 935a128a9c18b774d95698946c5ec4b4, type: 2}
   - {fileID: 11400000, guid: e9424e249bbc0b14bbca2a3135118b02, type: 2}
+  - {fileID: 11400000, guid: 5dc22cb126edfb640b17717f86fccef6, type: 2}
   - {fileID: 11400000, guid: 0f5bae52919c23c4a8f9d093b999720e, type: 2}
 --- !u!4 &91609500
 Transform:
@@ -375,7 +376,7 @@ Transform:
   m_Children:
   - {fileID: 968086074}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &119932066
 GameObject:
@@ -1149,49 +1150,6 @@ MonoBehaviour:
   _byingField: {fileID: 2065279973}
   _stopByingField: {fileID: 1462285921}
   _buyingFieldText: {fileID: 430453428}
---- !u!1 &221345777
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 221345779}
-  - component: {fileID: 221345778}
-  m_Layer: 0
-  m_Name: MenuLogic
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &221345778
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 221345777}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 056fe2ee09b56fc46b17a13bfbe65730, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &221345779
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 221345777}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 662.2323, y: 1037.3964, z: -537.75}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &228583862
 GameObject:
   m_ObjectHideFlags: 0
