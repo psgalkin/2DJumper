@@ -5,7 +5,8 @@ class Rocket : MonoBehaviour
     { 
         ObjectsFactory generator = new ObjectsFactory();
         GameObject explosion = generator.GetProjectile(WeaponType.Explosion);
-        explosion.transform.position = transform.position;
+        explosion.transform.position = //transform.position;
+            new Vector3(transform.position.x, transform.position.y, explosion.transform.position.z);
         Destroy(gameObject);
     }
 }

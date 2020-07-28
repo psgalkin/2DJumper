@@ -150,10 +150,10 @@ class AttackController : MonoBehaviour
         float spriteX = projectile.GetComponentInChildren<SpriteRenderer>().bounds.size.x;
         float spriteY = projectile.GetComponentInChildren<SpriteRenderer>().bounds.size.y;
         float coefX = (endLaserPoint - startLaserPoint).magnitude / spriteY;
-        float coefY = 0.2f / spriteX;
+        ///float coefY = 0.2f / spriteX;
 
         projectile.GetComponentInChildren<SpriteRenderer>().gameObject.transform.localScale =
-            new Vector3(coefX, coefY, 1.0f);
+            new Vector3(coefX, 0.5f, 1.0f);
 
         // добавляем коллайдер
         Vector2[] rayPoints = new Vector2[] { 

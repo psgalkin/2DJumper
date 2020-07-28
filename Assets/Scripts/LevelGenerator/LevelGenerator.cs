@@ -301,7 +301,7 @@ public class LevelGenerator : MonoBehaviour
     private void GenerateCharacter()
     {
         GameObject character = _factory.GetCharacter();
-        character.transform.position = new Vector3(_lvlWidth / 2, 1.5f);
+        character.transform.position = new Vector3(_lvlWidth / 2, 1.5f, character.transform.position.z);
     }
 
     private void GenerateBorders()
