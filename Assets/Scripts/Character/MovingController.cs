@@ -1,11 +1,12 @@
 ﻿using System.Numerics;
 using UnityEngine;
+using TMPro;
 
 using Vector2 = UnityEngine.Vector2;
 
 class MovingController : MonoBehaviour
 {
-    public enum MovingType { None = 0, Keyboard = 1, Accelerometer = 2 }
+    public enum MovingType { None = 0, Keyboard = 1, Gyroscope = 2 }
     
     [SerializeField] private MovingType _movingType;
     [SerializeField] private float _rotationSpeed;
@@ -23,8 +24,12 @@ class MovingController : MonoBehaviour
     private float _forceCoef;
     private float _flyingSpeed;
 
+    private Gyroscope _gyro;
+
     private void Start()
     {
+        _gyro = Input.gyro;
+        _gyro.enabled = true;
         _rigidBody = GetComponent<Rigidbody2D>();
     }
 
@@ -123,16 +128,39 @@ class MovingController : MonoBehaviour
 
     private void Move()
     {
-        float deltaX = Input.GetAxis("Horizontal") * _rotationSpeed * Time.deltaTime;
-        Vector2 movement = new Vector2(deltaX, _rigidBody.velocity.y);
-        if (Mathf.Abs(_jumpVelocityX) > 0.15f)
+        if (_movingType == MovingType.Keyboard)
         {
-            Debug.Log(_jumpVelocityX);
-            movement = new Vector2(deltaX + _jumpVelocityX * 0.01f, _rigidBody.velocity.y);
-            _jumpVelocityX += (_jumpVelocityX > 0) ? -5f : 5f;
+            float deltaX = Input.GetAxis("Horizontal") * _rotationSpeed * Time.deltaTime;
+            Vector2 movement = new Vector2(deltaX, _rigidBody.velocity.y);
+            if (Mathf.Abs(_jumpVelocityX) > 0.15f)
+            {
+                Debug.Log(_jumpVelocityX);
+                movement = new Vector2(deltaX + _jumpVelocityX * 0.01f, _rigidBody.velocity.y);
+                _jumpVelocityX += (_jumpVelocityX > 0) ? -5f : 5f;
+            }
+
+            _rigidBody.velocity = movement;
         }
-        
-        _rigidBody.velocity = movement;
+        else if (_movingType == MovingType.Gyroscope)
+        {
+            float deltaX = GyroToUnity(_gyro.attitude).x * 2f * _rotationSpeed * Time.deltaTime;
+
+            //_debugText.text = $"x:{gyro.x}, y:{gyro.y}, z:{gyro.z}, w:{gyro.eulerAngles.x}/n angle: x:{gyro.eulerAngles.x}, y:{gyro.eulerAngles.x}";
+            Vector2 movement = new Vector2(deltaX, _rigidBody.velocity.y);
+            if (Mathf.Abs(_jumpVelocityX) > 0.15f)
+            {
+                Debug.Log(_jumpVelocityX);
+                movement = new Vector2(deltaX + _jumpVelocityX * 0.01f, _rigidBody.velocity.y);
+                _jumpVelocityX += (_jumpVelocityX > 0) ? -5f : 5f;
+            }
+
+            _rigidBody.velocity = movement;
+        }
+    }
+
+    private UnityEngine.Quaternion GyroToUnity(UnityEngine.Quaternion q)
+    {
+        return new UnityEngine.Quaternion(q.x, q.y, -q.z, -q.w);
     }
 
     private void FixedUpdate()
